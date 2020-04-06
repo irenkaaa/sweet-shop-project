@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/sweet-shop-project/static/css/main.402bf80a.chunk.css",
+    "main.js": "/sweet-shop-project/static/js/main.d3cef620.chunk.js",
+    "main.js.map": "/sweet-shop-project/static/js/main.d3cef620.chunk.js.map",
+    "runtime-main.js": "/sweet-shop-project/static/js/runtime-main.279342db.js",
+    "runtime-main.js.map": "/sweet-shop-project/static/js/runtime-main.279342db.js.map",
+    "static/css/2.f42e59c9.chunk.css": "/sweet-shop-project/static/css/2.f42e59c9.chunk.css",
+    "static/js/2.5e819bba.chunk.js": "/sweet-shop-project/static/js/2.5e819bba.chunk.js",
+    "static/js/2.5e819bba.chunk.js.map": "/sweet-shop-project/static/js/2.5e819bba.chunk.js.map",
+    "index.html": "/sweet-shop-project/index.html",
+    "precache-manifest.2e4c999cd4d48e2174c798fdb7fe025f.js": "/sweet-shop-project/precache-manifest.2e4c999cd4d48e2174c798fdb7fe025f.js",
+    "service-worker.js": "/sweet-shop-project/service-worker.js",
+    "static/css/2.f42e59c9.chunk.css.map": "/sweet-shop-project/static/css/2.f42e59c9.chunk.css.map",
+    "static/css/main.402bf80a.chunk.css.map": "/sweet-shop-project/static/css/main.402bf80a.chunk.css.map",
+    "static/js/2.5e819bba.chunk.js.LICENSE.txt": "/sweet-shop-project/static/js/2.5e819bba.chunk.js.LICENSE.txt",
+    "static/media/screen_shot_2011-05-12_at_11.25.38.png": "/sweet-shop-project/static/media/screen_shot_2011-05-12_at_11.25.38.a12ae613.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.279342db.js",
+    "static/css/2.f42e59c9.chunk.css",
+    "static/js/2.5e819bba.chunk.js",
+    "static/css/main.402bf80a.chunk.css",
+    "static/js/main.d3cef620.chunk.js"
+  ]
+}
