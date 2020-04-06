@@ -1,0 +1,67 @@
+
+
+div.welcome-user-message {
+    width: 40%;
+    margin: 0.5rem auto;
+    padding: 2.5em 0 3em 0;
+    text-align: center;
+    box-shadow: 0px 5px 10px 5px #a09c9c;
+}
+
+
+
+div.welcome-user-message h1 {
+    margin: 0 auto;
+}
+div.welcome-user-message h3 {
+    padding-bottom: 1.5rem;
+}
+
+div.welcome-user-message p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.welcome-user-message a {
+    padding: 10px;
+    background-color:rgb(116, 56, 112);
+    border-radius: 0.5em;
+    outline: none;
+    text-decoration: none;
+    color: wheat;
+    margin: 10px;
+    border: 2px solid rgb(116, 56, 112);
+    
+}
+
+div.welcome-user-message a:hover {
+    background-color: wheat;
+    color:black;
+    border: 2px solid wheat;
+}
+
+div.welcome-user-message p {
+    font-size: 18px;
+    margin: 25px
+}
+
+div.promotions {
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: 2rem auto;
+}
+
+div.promotions p {
+    align-items: center;
+    padding: 1em;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: rgb(167, 108, 130);
+}
+
+div.promotions p:hover {
+    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.62);
+    border: 0px solid #000000;
+}

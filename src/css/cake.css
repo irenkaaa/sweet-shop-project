@@ -1,0 +1,48 @@
+h2.sweets-page-h2 {
+    text-align: center;
+}
+
+div.cakes{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+div.cake-wrapper{
+    flex-basis: 33%;
+    text-align: center;
+    border: 2px solid rgb(116, 56, 112);
+    box-shadow: inset 0px 0px 20px 5px rgba(0,0,0,0.5);
+}
+div.cake-wrapper h2{}
+div.cake-wrapper img.cake-image{
+
+}
+
+div.mini-wrapper{
+    display: flex;
+    padding: 0 0.5em;
+}
+
+div.cake-wrapper p{}
+div.cake-wrapper p.cake-description{
+    margin-left: 0.8em;
+}
+div.cake-wrapper p.cake-price{}
+div.cake-wrapper p.additional-info{}
+a[type="submit"] {
+    background-color: rgb(116, 56, 112);
+    color: white;
+    padding: 0.5rem;
+    font-size: 15px;
+    border: 2px solid rgb(116, 56, 112);
+    border-radius: 0.5em;
+}
+a[type="submit"]:hover {
+    background-color: rgb(116, 56, 112);
+    color: white;
+    border: 2px solid white;
+    font-size: 15px;
+    font-weight: bold;
+}

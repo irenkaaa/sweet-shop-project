@@ -1,0 +1,55 @@
+nav.navbar-menu {    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color:rgb(116, 56, 112);
+    
+}
+
+nav.navbar-menu ul {
+    display: flex;
+    padding-inline-start: 0;
+}
+
+nav.navbar-menu li {
+    list-style: none outside;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem;
+}
+
+
+nav.navbar-menu span h1 {
+    font-size: 1em;
+    padding: 0;
+    text-align: center;
+    color: wheat;
+    background-color: rgb(98, 168, 98);
+    border: 3px solid  rgb(80, 136, 80);
+    margin-top: 0.3em;
+}
+
+nav.navbar-menu span h1:hover {
+    
+    background-color: rgb(80, 136, 80);
+    border: 3px solid  rgb(98, 168, 98);
+}
+
+nav.navbar-menu .logo {
+    padding: 1rem 2.5rem 0 2.5rem;
+    background-color:rgb(116, 56, 112);
+}
+
+
+
+nav.navbar-menu a {
+    text-decoration: none;
+    color: wheat;
+    padding: 0.5em;
+}
+
+nav.navbar-menu a:hover {
+    color:  black;
+}
+

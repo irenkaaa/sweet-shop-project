@@ -1,3 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Comic+Neue|Noto+Sans+JP&display=swap');
+
+
+*{
+    box-sizing: border-box;
+}
+*:before, *:after{
+    box-sizing: inherit;
+}
+/*
+font-family: 'Comic Neue', cursive;
+font-family: 'Noto Sans JP', sans-serif;*/
+body {
+    margin: 0;
+    padding: 0;
+    font: 16px/1.5 'Noto Sans JP', sans-serif;
+    background-color: rgb(194, 184, 201);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Comic Neue', cursive;
+}
+
+a {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+img {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+p.loading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: crimson;
+}
+
+
+div.promotions {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 2rem auto;
+}
+
+div.promotions p {
+    align-items: center;
+    padding: 1em;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+div.promotions p:hover {
+    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.62);
+    border: 0px solid #000000;
+}
+
+
+div.blog-articles {}
+div.blog-articles h2 {
+    padding: 0 0 0 5em;
+    font-size: 2.5rem;
+}
+div.blog-articles.blog ul {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+div.blog-articles.blog li{
+    list-style: none outside;
+    border: 3px solid palevioletred;
+    border-radius: 0.5;
+    padding: 0.5rem;
+}
+
+div.blog-articles p{
+
+}
+
+div.blog-articles a {
+    text-decoration: none;
+    padding: 0.5rem;
+    color: black;
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+th {
+    width: 100% !important;
+}
+
+
+@media screen and (max-width: 800px){
+    nav.navbar-menu a {
+        width: 100%;       
+        padding: 10px 5px;
+    }
+
+    div.welcome-wrapper > p a{
+        width: 100%;
+    }
+}
+
+/*
 .App {
   text-align: center;
 }
@@ -36,3 +151,4 @@
     transform: rotate(360deg);
   }
 }
+*/
