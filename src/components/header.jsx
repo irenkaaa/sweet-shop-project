@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import '../css/header.css';
-import Logo from '../screen_shot_2011-05-12_at_11.25.38.png';
+import Logo from '../cake_logo.png';
 
 
 
@@ -19,7 +19,7 @@ class Header extends Component {
                         <li><NavLink to="/blog">Blog</NavLink></li>
                         
                         {       
-                            this.props.username ?
+                            username ?
 
                                 (
                                     <ul>

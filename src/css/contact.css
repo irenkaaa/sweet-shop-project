@@ -1,0 +1,27 @@
+div.contact{
+}
+div.contact h2{
+    text-align: center;
+}
+div.address{
+    border: 2px solid lightblue;
+    padding: 1rem 0 1rem 1rem;
+    width: 40%;
+    margin-left: 3em;
+}
+div.address p.phone {
+    display: flex;
+    flex-wrap: wrap;
+}
+div.address p.phone a{
+    text-decoration: none;
+    color: black;
+    align-content: right;
+}
+div.address ul{}
+div.address li{
+    list-style-type: square;
+}
+div.address h4{
+    
+}

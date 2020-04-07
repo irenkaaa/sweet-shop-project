@@ -14,7 +14,6 @@ import StoreDatabase from './components/storeDatabase';
 import NotFound from './views/not-found';
 import Home from './views/home';
 import Contact from './views/contact';
-import Logout from './components/logout';
 import getAuthHeader from './data/crud';
 import MyProfile from './components/myprofile';
 
@@ -36,7 +35,8 @@ class App extends Component {
     if(localStorage.getItem('username')) {
       this.setState({
         username: localStorage.getItem('username'),
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
+        isLoggedIn: true
       });
     }
     
@@ -50,20 +50,21 @@ class App extends Component {
 
   handleSubmit(e,data,isSign) {
     e.preventDefault();
-    fetch('http://localhost:5000/auth/' + (isSign ? 'signup' : 'login'),{
+     fetch('http://localhost:5000/auth/' + (isSign ? 'signup' : 'login'),{
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-    }).then(rawData => rawData.json())
+      })
+      .then(rawData => rawData.json())
       .then(responseBody => {
         
         if(responseBody.user) {
           
           this.setState({
             username: responseBody.user.username,
-            isAdmin: responseBody.user.isAdmin
+            isAdmin: responseBody.user.isAdmin,  
           });
           localStorage.setItem('username', responseBody.user.username);
           localStorage.setItem('isAdmin', responseBody.user.isAdmin);
@@ -75,7 +76,7 @@ class App extends Component {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
       });
-  }
+    }      
 
    handleSubmitCreate(e,data) {
 
@@ -107,10 +108,9 @@ class App extends Component {
       localStorage.removeItem('isAdmin');      
       localStorage.removeItem('token');      
        
-      
       this.setState({
-      username: '',
-      isAdmin: false,
+        username: '',
+        isAdmin: '',
       });   
       toast.success(`Successful, logout`, {closeButton:false});   
     } catch (error) {
@@ -118,7 +118,6 @@ class App extends Component {
     }    
   }
 
-  
 
   render () {
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/form.css';
+import { Redirect } from 'react-router';
 
 class Login extends Component {
     constructor(props){
@@ -16,7 +17,6 @@ class Login extends Component {
       render() {
     
         const { email, password } = this.state;
-       
     
         return (
             <div className="Login">
