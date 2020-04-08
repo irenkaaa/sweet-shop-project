@@ -41,24 +41,6 @@ p.loading {
 }
 
 
-div.promotions {
-    display: flex;
-    justify-content: space-evenly;
-    width: 80%;
-    margin: 2rem auto;
-}
-
-div.promotions p {
-    align-items: center;
-    padding: 1em;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-div.promotions p:hover {
-    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.62);
-    border: 0px solid #000000;
-}
 
 
 div.blog-articles {}

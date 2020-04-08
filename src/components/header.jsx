@@ -28,12 +28,12 @@ class Header extends Component {
                                             (
                                                 <ul>
                                                     <li><NavLink to="/create">Create</NavLink></li>
-                                                    <li><NavLink to="/myprofile">My profile</NavLink></li>
+                                                    <li><NavLink to="/orders">Orders</NavLink></li>
                                                 </ul>
                                             )
                                             :
                                             (
-                                                <li><NavLink to='/myprofile'>My profile</NavLink></li>
+                                                <li><NavLink to='/mycart'>My cart</NavLink></li>
                                             )
                                         }
                                         
