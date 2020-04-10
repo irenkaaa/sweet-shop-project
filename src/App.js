@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -15,7 +16,8 @@ import NotFound from './views/not-found';
 import Home from './views/home';
 import Contact from './views/contact';
 import getAuthHeader from './data/crud';
-import MyProfile from './components/myprofile';
+import MyCart from './components/mycart';
+import Order from './components/order-window';
 
 
 
@@ -27,6 +29,7 @@ class App extends Component {
       username: '',
       isAdmin: '',
       sweets:[],
+      isLoading: true,
     };
   }
 
@@ -35,10 +38,19 @@ class App extends Component {
     if(localStorage.getItem('username')) {
       this.setState({
         username: localStorage.getItem('username'),
-        isAdmin: isAdmin,
-        isLoggedIn: true
+        isAdmin: isAdmin
       });
     }
+    fetch('http://localhost:5000/sweets/all')
+      .then(rawData => rawData.json())
+      .then(body => {
+        this.setState({
+          sweets: body,
+          isLoading:false,
+        });
+      });
+    } catch (error) {
+      console.log(error);
     
   }
 
@@ -64,8 +76,9 @@ class App extends Component {
           
           this.setState({
             username: responseBody.user.username,
-            isAdmin: responseBody.user.isAdmin,  
+            isAdmin: responseBody.user.isAdmin,
           });
+
           localStorage.setItem('username', responseBody.user.username);
           localStorage.setItem('isAdmin', responseBody.user.isAdmin);
           localStorage.setItem('token', responseBody.token);
@@ -101,12 +114,35 @@ class App extends Component {
         });
   }
 
+  handleSubmitOrder(e,data) {
+    e.preventDefault();
+    const authHeader = getAuthHeader;
+    fetch ('http://localhost:5000/orders/submit', {
+        method: 'post',
+        headers: {
+          'Content-Type':'application/json',
+          'Accept':'application/json',
+          ...authHeader
+        },
+        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
+      }).then(rawData => rawData.json())
+        .then(responseBody => {
+          console.log(responseBody);
+          if(!responseBody.error) {
+            toast.success(`${responseBody.message}`, {closeButton:false});
+          }
+          else {
+            toast.error(`${responseBody.message}`, {closeButton:false});
+          }
+        });
+  }
+
    logout(e) {
     try {
       e.preventDefault();
       localStorage.removeItem('username');
       localStorage.removeItem('isAdmin');      
-      localStorage.removeItem('token');      
+      localStorage.removeItem('token');
        
       this.setState({
         username: '',
@@ -165,6 +201,17 @@ class App extends Component {
                           handleChange={this.handleChange} 
                     />}/>
 
+                    <Route
+                      path='/order/:id' 
+                        render= {
+                        (props) => 
+                        <Order 
+                          {...props}
+                          sweets={this.state.sweets}
+                          username={this.state.username}
+                          handleChange={this.handleChange.bind(this)}
+                          handleSubmitOrder={this.handleSubmitOrder.bind(this)}
+                    />}/>
                     
                     <Route 
                       render= {
@@ -192,16 +239,18 @@ class App extends Component {
                         <StoreDatabase 
                           {...props}
                           sweets={this.state.sweets} 
+                          isLoading={this.state.isLoading}
                     />}/>
 
 
                     <Route 
-                      path='/myprofile'
+                      path='/mycart'
                       exact
                       render= {
                       (props) =>
-                      <MyProfile
+                      <MyCart
                         {...props}
+                        sweets={this.state.sweets}
                         username={this.state.username}
                     />}/> 
 

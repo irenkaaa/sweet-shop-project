@@ -26,6 +26,10 @@ const Contact = () => {
                         <span>Main contact person - Ivana Ivanova:</span>
                         <a href='#'>00359 882 822 111</a>
                     </p>
+                    <p className='phone'>
+                        <span>Email:</span>
+                        <a href='#'>sweetcakes@sweet.com</a>
+                    </p>
 
                 </div>
             </div>

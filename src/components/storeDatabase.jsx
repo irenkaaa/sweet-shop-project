@@ -1,35 +1,13 @@
 import React, { Fragment, Component } from 'react';
 import SweetThing from './sweetThing';
 import '../css/cake.css';
-import Loading from './loading';
+import Loading from '../views/loading';
 
 
 class StoreDatabase extends Component {
-  state={
-    sweets: [],
-    isLoading: true,
-    };
-  
-
-  async componentDidMount () {
-    try {
-      await fetch('http://localhost:5000/sweets/all')
-      .then(rawData => rawData.json())
-      .then(body => {
-        this.setState({
-          sweets: body,
-          isLoading:false,
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-  }
-
 
   render() {
-    const {sweets,isLoading} = this.state;
+    const { sweets, isLoading } = this.props;
 
     if(isLoading) {
       return <Loading />;

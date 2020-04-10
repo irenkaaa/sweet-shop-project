@@ -32,7 +32,7 @@ div.mini-wrapper{
     padding: 0 0.5em;
 }
 
-div.cake-wrapper p.text-wrapper{
+div.cake-wrapper div.text-wrapper{
     flex: auto;
 }
 
