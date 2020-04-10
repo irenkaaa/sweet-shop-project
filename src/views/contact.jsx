@@ -20,15 +20,15 @@ const Contact = () => {
                 <div className='address'>
                     <p className='phone'>
                         <span>Office phone number:</span>
-                        <a href='#'>02 822 1115</a>
+                        <a href='tel:02 822 1115'>02 822 1115</a>
                     </p>
                     <p className='phone'>
                         <span>Main contact person - Ivana Ivanova:</span>
-                        <a href='#'>00359 882 822 111</a>
+                        <a href='tel:00359 882 822 111'>00359 882 822 111</a>
                     </p>
                     <p className='phone'>
                         <span>Email:</span>
-                        <a href='#'>sweetcakes@sweet.com</a>
+                        <a href='mailto:sweetcakes@sweet.com'>sweetcakes@sweet.com</a>
                     </p>
 
                 </div>

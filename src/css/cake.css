@@ -10,6 +10,7 @@ div.cakes{
     margin-bottom: 5em;
     justify-content: space-around;
 }
+
 div.cake-wrapper{
     flex-basis: 28%;
     padding: 2em 1em;
@@ -20,11 +21,9 @@ div.cake-wrapper{
     border: 2px solid rgb(116, 56, 112);
     box-shadow: inset 0px 0px 20px 5px rgba(0,0,0,0.5);
 }
+
 div.cake-wrapper h2{
     margin-top: 0;
-}
-div.cake-wrapper img.cake-image{
-
 }
 
 div.mini-wrapper{
@@ -39,8 +38,7 @@ div.cake-wrapper div.text-wrapper{
 div.cake-wrapper p.cake-description{
     margin-left: 0.8em;
 }
-div.cake-wrapper p.cake-price{}
-div.cake-wrapper p.additional-info{}
+
 a[type="submit"] {
     background-color: rgb(116, 56, 112);
     color: white;

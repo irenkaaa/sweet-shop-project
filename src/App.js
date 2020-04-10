@@ -205,13 +205,22 @@ class App extends Component {
                       path='/order/:id' 
                         render= {
                         (props) => 
-                        <Order 
-                          {...props}
-                          sweets={this.state.sweets}
-                          username={this.state.username}
-                          handleChange={this.handleChange.bind(this)}
-                          handleSubmitOrder={this.handleSubmitOrder.bind(this)}
-                    />}/>
+                        this.state.username ? 
+                          <Order 
+                            {...props}
+                            sweets={this.state.sweets}
+                            isAdmin={this.state.isAdmin}
+                            handleChange={this.handleChange.bind(this)}
+                            handleSubmitOrder={this.handleSubmitOrder.bind(this)}
+                          />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
                     
                     <Route 
                       render= {

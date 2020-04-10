@@ -26,7 +26,7 @@ div.address p.phone {
 }
 div.address p.phone a{
     text-decoration: none;
-    color: black;
+    color: rgb(214, 91, 9);
     padding-left: 1em;
 }
 div.address ul{}

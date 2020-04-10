@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/form.css';
-import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props){
@@ -32,8 +32,10 @@ class Login extends Component {
                             <input  onChange={this.handleChange}  type="password" name="password" id="password" placeholder="Enter password" value={password}/>
                         </div>
                         <button type="submit">Login</button>
-                        
                     </form>
+                    <p>If you don't have an account - go and register here
+                        <Link to="register">Register</Link>
+                    </p>
                 </div>
             </div>
         );

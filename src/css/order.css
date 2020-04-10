@@ -1,0 +1,58 @@
+.order-wrapper {
+    padding: 1em 0 3em 0;
+    width: 60%;
+    margin: 0 auto;       
+    text-align: center;
+}
+
+.order-wrapper form{
+    width: 60%;
+    margin: 1em auto;
+}
+
+.order-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.order-group label{    
+    padding: 0 1em 1em 0;
+    text-align: left;
+}
+
+.order-wrapper input{
+   padding: 10px;
+   outline: none;
+   font-size: 20px;
+   border-radius: 0.5em;
+   border: 1px solid rgb(116, 56, 112);
+   background-color: whitesmoke;
+}
+
+
+.order-wrapper [type="submit"],
+.order-wrapper .after-order {
+    padding: 10px 20px;
+    margin: 20px;   
+    background-color: rgb(116, 56, 112);
+    border-radius: 0.5em;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid rgb(116, 56, 112);
+    text-decoration: none;
+}
+
+.order-wrapper [type="submit"]:hover ,
+.order-wrapper .after-order:hover {
+    background-color: white;
+    border-radius: 0.5em;
+    color: rgb(116, 56, 112);
+    border: 2px solid rgb(116, 56, 112);
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+
+}
