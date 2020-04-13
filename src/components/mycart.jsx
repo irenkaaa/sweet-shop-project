@@ -1,61 +1,47 @@
 import React from 'react';
-import '../css/form.css';
+import '../css/mycart.css';
 import Loading from '../views/loading';
+import ProductInfo from './productInfo';
 
 
-class MyCart extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            products: [],
-            isLoading: true,
-        };
-    }
-      
-    
-      async componentDidMount () {
-        
-        try {
-          await fetch('http://localhost:5000/order/user')
-          .then(rawData => rawData.json())
-          .then(body => {
-            this.setState({
-              products: body,
-              isLoading:false,
-            });
-          });
-        } catch (error) {
-          console.log(error);
-        }
-    
-      }
-    
-    
+class MyCart extends React.Component {    
       render() {
-        const {products,isLoading} = this.props;
+        const {productsUserCart,isLoadingCart } = this.props;
     
-        if(isLoading) {
+        if(isLoadingCart) {
           return <Loading />;
         }
-        if(!products.length && !isLoading) {
+        if(!productsUserCart.length && !isLoadingCart) {
           return (<div>No products at this moment!</div>);
         }
     
         return (
-           
-          <div className="cakes">
-          {
-            
-            products.map(product => (
-                  <div>
-                    <p>product.title</p>
-                    <button type='select'></button>
-                    <p>product.price</p>
-                  </div>
-            ))
-          }
-      </div>
-            
+          <div className="mycart">
+            <h2>My Cart</h2>
+            <form>
+              <div className="group">    
+                <label htmlFor="name">Name</label>
+                <label htmlFor="article">Article</label>
+                <label htmlFor="price">price</label>
+                <label htmlFor="mediary-price">mediary price</label>
+              </div> 
+              
+                {
+                  productsUserCart.map(p => 
+                    (
+                      <ProductInfo key={p._id} {...p.products[0]} />
+                    ))                 
+                }
+
+                <div className='total-price'>
+                  <label htmlFor="total-price">Total:</label>
+                  <input type="num" name="total-price" id="total-price" defaultValue="0" readOnly="readonly"/>
+                </div>
+                <button type="submit" name="finish-the-order" id="finish-the-order" >Finish the Order</button>
+
+              
+            </form>
+          </div>           
         )
     }
 }
