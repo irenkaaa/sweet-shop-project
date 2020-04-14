@@ -29,7 +29,7 @@ class App extends Component {
       username: '',
       isAdmin: '',
       sweets:[],
-      productsUserCart: [],
+      products: [],
       isLoading: true,
       isLoadingCart: true
     };
@@ -65,7 +65,7 @@ class App extends Component {
         .then(rawData => rawData.json())
         .then(body => 
           this.setState({
-            productsUserCart: body,
+            products: body,
             isLoadingCart: false
           })
         ));
@@ -132,28 +132,6 @@ class App extends Component {
         });
   }
 
-  handleSubmitOrder(e,data) {
-    e.preventDefault();
-    const authHeader = getAuthHeader;
-    fetch ('http://localhost:5000/orders/submit', {
-        method: 'post',
-        headers: {
-          'Content-Type':'application/json',
-          'Accept':'application/json',
-          ...authHeader
-        },
-        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-      }).then(rawData => rawData.json())
-        .then(responseBody => {
-         
-          if(!responseBody.error) {
-            toast.success(`${responseBody.message}`, {closeButton:false});
-          }
-          else {
-            toast.error(`${responseBody.message}`, {closeButton:false});
-          }
-        });
-  }
 
    logout(e) {
     try {
@@ -175,7 +153,7 @@ class App extends Component {
   handleMyCartSubmit(e,data) {
     e.preventDefault();
     const authHeader = getAuthHeader;
-    fetch ('http://localhost:5000/orders/user', {
+    fetch ('http://localhost:5000/orders/submit', {
         method: 'post',
         headers: {
           'Content-Type':'application/json',
@@ -185,15 +163,51 @@ class App extends Component {
         body: Object.keys(data).length ? JSON.stringify(data) : undefined,
       }).then(rawData => rawData.json())
         .then(responseBody => {
-          console.log(responseBody);
+         
           if(!responseBody.error) {
             toast.success(`${responseBody.message}`, {closeButton:false});
           }
           else {
             toast.error(`${responseBody.message}`, {closeButton:false});
           }
-        });
-       
+        });  
+  }
+
+  handleAddToCartSubmit(e,data){
+    e.preventDefault();
+    const authHeader = getAuthHeader;
+    fetch ('http://localhost:5000/orders/submit', {
+        method: 'post',
+        headers: {
+          'Content-Type':'application/json',
+          'Accept':'application/json',
+          ...authHeader
+        },
+        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
+      }).then(rawData => rawData.json())
+        .then(responseBody => {  
+          if(!responseBody.error) {
+            toast.success(`${responseBody.message}`, {closeButton:false});
+          }
+          else {
+            toast.error(`${responseBody.message}`, {closeButton:false});
+          }
+        })
+        .then(
+          fetch('http://localhost:5000/orders/user',{
+          method: 'get',
+          headers: {
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            ...authHeader
+          },
+        })
+          .then(rawData => rawData.json())
+          .then(body => 
+            this.setState({
+              products: body,
+            })
+          ));
   }
 
   render () {
@@ -250,9 +264,10 @@ class App extends Component {
                           <Order 
                             {...props}
                             sweets={this.state.sweets}
+                            products={this.state.products}
                             isAdmin={this.state.isAdmin}
                             handleChange={this.handleChange.bind(this)}
-                            handleSubmitOrder={this.handleSubmitOrder.bind(this)}
+                            handleAddToCartSubmit={this.handleAddToCartSubmit.bind(this)}
                           />
                           :
                           <Redirect
@@ -301,7 +316,27 @@ class App extends Component {
                       <MyCart
                         {...props}
                         username={this.state.username}
-                        productsUserCart={this.state.productsUserCart}
+                        products={this.state.products}
+                        isLoadingCart={this.state.isLoadingCart}
+                        />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
+
+                    <Route 
+                      path='/finishOrder'
+                      render= {
+                      (props) =>
+                      this.state.username ?
+                      <MyCart
+                        {...props}
+                        username={this.state.username}
+                        products={this.state.products}
                         isLoadingCart={this.state.isLoadingCart}
                         handleMyCartSubmit={this.handleMyCartSubmit.bind(this)}
                         />

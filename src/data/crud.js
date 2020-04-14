@@ -11,4 +11,3 @@ function getAuthHeader () {
 
 
 export default getAuthHeader();
-

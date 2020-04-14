@@ -2,16 +2,17 @@ import React from 'react';
 import '../css/mycart.css';
 import Loading from '../views/loading';
 import ProductInfo from './productInfo';
+import { Link } from 'react-router-dom';
 
 
 class MyCart extends React.Component {    
       render() {
-        const {productsUserCart,isLoadingCart } = this.props;
+        const {products,isLoadingCart } = this.props;
     
         if(isLoadingCart) {
           return <Loading />;
         }
-        if(!productsUserCart.length && !isLoadingCart) {
+        if(!products.length && !isLoadingCart) {
           return (<div>No products at this moment!</div>);
         }
     
@@ -27,7 +28,7 @@ class MyCart extends React.Component {
               </div> 
               
                 {
-                  productsUserCart.map(p => 
+                  products.map(p => 
                     (
                       <ProductInfo key={p._id} {...p.products[0]} />
                     ))                 
@@ -37,9 +38,7 @@ class MyCart extends React.Component {
                   <label htmlFor="total-price">Total:</label>
                   <input type="num" name="total-price" id="total-price" defaultValue="0" readOnly="readonly"/>
                 </div>
-                <button type="submit" name="finish-the-order" id="finish-the-order" >Finish the Order</button>
-
-              
+                <Link type='submit' to={`/finishOrder`}>Finish the order</Link>              
             </form>
           </div>           
         )
