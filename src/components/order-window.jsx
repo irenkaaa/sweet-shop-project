@@ -19,11 +19,11 @@ class Order extends React.Component {
                 <input type="text" name="title" id="title" value={data.title} readOnly="readonly"/>
             </div>
             <div className="form-group">
-                <label htmlFor="price">price</label>
+                <label htmlFor="price">Price</label>
                 <input type="text" name="title" id="title" value={data.price} readOnly="readonly"/>
             </div>
             <button type="submit">Add to Cart</button>
-            
+            <p>All shown prices are in BGN - bulgarian leva</p>
         </form>
         <Link className='after-order' to="/store">Go to the Store</Link>
         {

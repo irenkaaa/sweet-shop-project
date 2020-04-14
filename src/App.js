@@ -29,7 +29,7 @@ class App extends Component {
       username: '',
       isAdmin: '',
       sweets:[],
-      products: [],
+      orders: [],
       isLoading: true,
       isLoadingCart: true
     };
@@ -65,7 +65,7 @@ class App extends Component {
         .then(rawData => rawData.json())
         .then(body => 
           this.setState({
-            products: body,
+            orders: body,
             isLoadingCart: false
           })
         ));
@@ -173,7 +173,7 @@ class App extends Component {
         });  
   }
 
-  handleAddToCartSubmit(e,data){
+  async handleAddToCartSubmit(e,data){
     e.preventDefault();
     const authHeader = getAuthHeader;
     fetch ('http://localhost:5000/orders/submit', {
@@ -185,7 +185,9 @@ class App extends Component {
         },
         body: Object.keys(data).length ? JSON.stringify(data) : undefined,
       }).then(rawData => rawData.json())
-        .then(responseBody => {  
+        .then(responseBody => { 
+          const cakeId = data._id;
+          
           if(!responseBody.error) {
             toast.success(`${responseBody.message}`, {closeButton:false});
           }
@@ -205,7 +207,7 @@ class App extends Component {
           .then(rawData => rawData.json())
           .then(body => 
             this.setState({
-              products: body,
+              orders: body,
             })
           ));
   }
@@ -264,7 +266,7 @@ class App extends Component {
                           <Order 
                             {...props}
                             sweets={this.state.sweets}
-                            products={this.state.products}
+                            orders={this.state.orders}
                             isAdmin={this.state.isAdmin}
                             handleChange={this.handleChange.bind(this)}
                             handleAddToCartSubmit={this.handleAddToCartSubmit.bind(this)}
@@ -316,7 +318,7 @@ class App extends Component {
                       <MyCart
                         {...props}
                         username={this.state.username}
-                        products={this.state.products}
+                        orders={this.state.orders}
                         isLoadingCart={this.state.isLoadingCart}
                         />
                           :
@@ -336,7 +338,7 @@ class App extends Component {
                       <MyCart
                         {...props}
                         username={this.state.username}
-                        products={this.state.products}
+                        orders={this.state.orders}
                         isLoadingCart={this.state.isLoadingCart}
                         handleMyCartSubmit={this.handleMyCartSubmit.bind(this)}
                         />

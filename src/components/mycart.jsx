@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 
 class MyCart extends React.Component {    
       render() {
-        const {products,isLoadingCart } = this.props;
+        const {orders,isLoadingCart } = this.props;
     
         if(isLoadingCart) {
           return <Loading />;
         }
-        if(!products.length && !isLoadingCart) {
-          return (<div>No products at this moment!</div>);
+        if(!orders.length && !isLoadingCart) {
+          return (<div>No orders at this moment!</div>);
         }
     
         return (
@@ -28,9 +28,9 @@ class MyCart extends React.Component {
               </div> 
               
                 {
-                  products.map(p => 
+                  orders.map(order => 
                     (
-                      <ProductInfo key={p._id} {...p.products[0]} />
+                      <ProductInfo key={order._id} {...order.products[0]} />
                     ))                 
                 }
 
