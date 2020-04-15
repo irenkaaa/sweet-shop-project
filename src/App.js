@@ -30,20 +30,41 @@ class App extends Component {
       isAdmin: '',
       sweets:[],
       orders: [],
+      cartProducts: [],
       isLoading: true,
       isLoadingCart: true
     };
   }
 
-  componentDidMount() {
+   componentDidMount() {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
     if(localStorage.getItem('username')) {
       this.setState({
         username: localStorage.getItem('username'),
         isAdmin: isAdmin
       });
+      const authHeader = getAuthHeader;
+        fetch ('http://localhost:5000/carts/userCart', {
+            method: 'get',
+            headers: {
+              'Content-Type':'application/json',
+              'Accept':'application/json',
+              ...authHeader
+            },
+          }).then(rawData => rawData.json())
+          .then(body => {
+            if(!body) {
+              this.setState({
+                isLoadingCart: false
+              })
+            } else {
+            this.setState({
+              cartProducts: body,
+              isLoadingCart: false
+            })
+          }
+          })
     }
-    const authHeader = getAuthHeader;
 
     fetch('http://localhost:5000/sweets/all')
       .then(rawData => rawData.json())
@@ -52,24 +73,7 @@ class App extends Component {
           sweets: body,
           isLoading:false,
         });
-      })
-      .then(
-        fetch('http://localhost:5000/orders/user',{
-        method: 'get',
-        headers: {
-          'Content-Type':'application/json',
-          'Accept':'application/json',
-          ...authHeader
-        },
-      })
-        .then(rawData => rawData.json())
-        .then(body => 
-          this.setState({
-            orders: body,
-            isLoadingCart: false
-          })
-        ));
-      
+      });
     }
 
   handleChange(e){
@@ -163,9 +167,25 @@ class App extends Component {
         body: Object.keys(data).length ? JSON.stringify(data) : undefined,
       }).then(rawData => rawData.json())
         .then(responseBody => {
-         
           if(!responseBody.error) {
             toast.success(`${responseBody.message}`, {closeButton:false});
+            this.setState({
+              orders: responseBody,
+              cartProducts: [],
+            });
+
+            fetch ('http://localhost:5000/carts/userCart', {
+              method: 'delete',
+              headers: {
+                'Content-Type':'application/json',
+                'Accept':'application/json',
+                ...authHeader
+              },
+            }).then(rawData => rawData.json())
+            .then(responseBody => {
+              console.log(responseBody);
+            });
+
           }
           else {
             toast.error(`${responseBody.message}`, {closeButton:false});
@@ -173,10 +193,11 @@ class App extends Component {
         });  
   }
 
-  async handleAddToCartSubmit(e,data){
+
+  anotherAddToCartSubmit(e,data) {
     e.preventDefault();
     const authHeader = getAuthHeader;
-    fetch ('http://localhost:5000/orders/submit', {
+     fetch ('http://localhost:5000/carts/add', {
         method: 'post',
         headers: {
           'Content-Type':'application/json',
@@ -186,31 +207,30 @@ class App extends Component {
         body: Object.keys(data).length ? JSON.stringify(data) : undefined,
       }).then(rawData => rawData.json())
         .then(responseBody => { 
-          const cakeId = data._id;
-          
-          if(!responseBody.error) {
-            toast.success(`${responseBody.message}`, {closeButton:false});
+         if(!responseBody.error) {
+          toast.success(`${responseBody.message}`, {closeButton:false});
           }
           else {
             toast.error(`${responseBody.message}`, {closeButton:false});
           }
         })
         .then(
-          fetch('http://localhost:5000/orders/user',{
-          method: 'get',
-          headers: {
-            'Content-Type':'application/json',
-            'Accept':'application/json',
-            ...authHeader
-          },
-        })
-          .then(rawData => rawData.json())
-          .then(body => 
+           fetch ('http://localhost:5000/carts/userCart', {
+            method: 'get',
+            headers: {
+              'Content-Type':'application/json',
+              'Accept':'application/json',
+              ...authHeader
+            },
+          }).then(rawData => rawData.json())
+          .then(body => {
             this.setState({
-              orders: body,
+              cartProducts: body.products,
+              isLoadingCart: false
             })
-          ));
-  }
+          })
+        )
+    }
 
   render () {
     return (
@@ -269,7 +289,7 @@ class App extends Component {
                             orders={this.state.orders}
                             isAdmin={this.state.isAdmin}
                             handleChange={this.handleChange.bind(this)}
-                            handleAddToCartSubmit={this.handleAddToCartSubmit.bind(this)}
+                            anotherAddToCartSubmit={this.anotherAddToCartSubmit.bind(this)}
                           />
                           :
                           <Redirect
@@ -318,27 +338,7 @@ class App extends Component {
                       <MyCart
                         {...props}
                         username={this.state.username}
-                        orders={this.state.orders}
-                        isLoadingCart={this.state.isLoadingCart}
-                        />
-                          :
-                          <Redirect
-                        to= {{
-                          pathname:'/login'
-                        }}
-                        />
-                      }
-                    />
-
-                    <Route 
-                      path='/finishOrder'
-                      render= {
-                      (props) =>
-                      this.state.username ?
-                      <MyCart
-                        {...props}
-                        username={this.state.username}
-                        orders={this.state.orders}
+                        cartProducts={this.state.cartProducts}
                         isLoadingCart={this.state.isLoadingCart}
                         handleMyCartSubmit={this.handleMyCartSubmit.bind(this)}
                         />

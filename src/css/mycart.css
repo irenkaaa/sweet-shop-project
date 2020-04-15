@@ -3,8 +3,6 @@ div.mycart{
     width: 80%;
     margin: 0 auto;       
     text-align: center;
-    
-
 }
 div.mycart h2{}
 div.mycart form{
@@ -47,16 +45,19 @@ div.mycart form .group label {
     background-color: whitesmoke;
     border-radius: 0.5em;
 }
-
+.mycart div.buttons {
+    display: flex;
+    align-items: flex-end;
+}
  
-.mycart [type="submit"] {
+.mycart [type="submit"],
+.after-order {
     width: 20%;
     align-self: flex-end;
     padding: 10px 20px;
     margin: 20px;   
     background-color: rgb(116, 56, 112);
     color: white;
-    border: none;
     font-size: 18px;
     font-weight: bold;
     border: 2px solid rgb(116, 56, 112);
@@ -64,9 +65,18 @@ div.mycart form .group label {
     text-decoration: none;
 }
  
-.mycart [type="submit"]:hover {
+.mycart [type="submit"]:hover,
+.after-order:hover {
     background-color: white;
     border-radius: 0.5em;
     color: rgb(116, 56, 112);
  
+}
+
+
+.cart-empty {
+  color:  rgb(23, 59, 49);
+  font-size: 2em;
+  margin: 3em;
+
 }
