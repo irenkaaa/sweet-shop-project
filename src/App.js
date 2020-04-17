@@ -11,13 +11,14 @@ import Login from './components/login';
 import Create from './components/create';
 import StoreDatabase from './components/storeDatabase';
 
+import {get,post,remove} from './data/crud';
 
 import NotFound from './views/not-found';
 import Home from './views/home';
 import Contact from './views/contact';
-import getAuthHeader from './data/crud';
 import MyCart from './components/mycart';
 import Order from './components/order-window';
+import MyOrders from './components/myorders';
 
 
 
@@ -32,7 +33,8 @@ class App extends Component {
       orders: [],
       cartProducts: [],
       isLoading: true,
-      isLoadingCart: true
+      isLoadingCart: true,
+      ordersLoading: true,
     };
   }
 
@@ -41,40 +43,24 @@ class App extends Component {
     if(localStorage.getItem('username')) {
       this.setState({
         username: localStorage.getItem('username'),
-        isAdmin: isAdmin
+        isAdmin: isAdmin, 
       });
-      const authHeader = getAuthHeader;
-        fetch ('http://localhost:5000/carts/userCart', {
-            method: 'get',
-            headers: {
-              'Content-Type':'application/json',
-              'Accept':'application/json',
-              ...authHeader
-            },
-          }).then(rawData => rawData.json())
-          .then(body => {
-            if(!body) {
-              this.setState({
-                isLoadingCart: false
-              })
-            } else {
-            this.setState({
-              cartProducts: body,
-              isLoadingCart: false
-            })
-          }
-          })
     }
 
-    fetch('http://localhost:5000/sweets/all')
-      .then(rawData => rawData.json())
-      .then(body => {
-        this.setState({
-          sweets: body,
-          isLoading:false,
-        });
+    get('http://localhost:5000/sweets/all').then(resBody => {
+      this.setState({
+        sweets: resBody,
+        isLoading:false,
       });
-    }
+    });
+
+    get('http://localhost:5000/carts/userCart').then(resBody => {
+      this.setState({
+        cartProducts: resBody,
+        isLoadingCart: false
+      })
+    });
+   }
 
   handleChange(e){
     this.setState({
@@ -84,18 +70,8 @@ class App extends Component {
 
   handleSubmit(e,data,isSign) {
     e.preventDefault();
-     fetch('http://localhost:5000/auth/' + (isSign ? 'signup' : 'login'),{
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-      })
-      .then(rawData => rawData.json())
-      .then(responseBody => {
-        
-        if(responseBody.user) {
-          
+     post('http://localhost:5000/auth/' + (isSign ? 'signup' : 'login'),data).then(responseBody => {
+        if(responseBody.user) { 
           this.setState({
             username: responseBody.user.username,
             isAdmin: responseBody.user.isAdmin,
@@ -104,40 +80,28 @@ class App extends Component {
           localStorage.setItem('username', responseBody.user.username);
           localStorage.setItem('isAdmin', responseBody.user.isAdmin);
           localStorage.setItem('token', responseBody.token);
-          
           toast.success(`Welcome, ${responseBody.user.username}`, {closeButton:false});
         }
         else {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
-      });
-    }      
+      })
+    }   
 
-   handleSubmitCreate(e,data) {
-
+  handleSubmitCreate(e,data) {
     e.preventDefault();
-    const authHeader = getAuthHeader;
-    fetch ('http://localhost:5000/sweets/create', {
-        method: 'post',
-        headers: {
-          'Content-Type':'application/json',
-          'Accept':'application/json',
-          ...authHeader
-        },
-        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-      }).then(rawData => rawData.json())
-        .then(responseBody => {
-          if(!responseBody.error) {
-            toast.success(`${responseBody.message}`, {closeButton:false});
-          }
-          else {
-            toast.error(`${responseBody.message}`, {closeButton:false});
-          }
-        });
+    post('http://localhost:5000/sweets/create', data).then(resBody => {
+      if(!resBody.error) {
+        toast.success(`${resBody.message}`, {closeButton:false});
+      }
+      else {
+        toast.error(`${resBody.message}`, {closeButton:false});
+      }
+    });
   }
 
 
-   logout(e) {
+  logout(e) {
     try {
       e.preventDefault();
       localStorage.removeItem('username');
@@ -156,81 +120,47 @@ class App extends Component {
 
   handleMyCartSubmit(e,data) {
     e.preventDefault();
-    const authHeader = getAuthHeader;
-    fetch ('http://localhost:5000/orders/submit', {
-        method: 'post',
-        headers: {
-          'Content-Type':'application/json',
-          'Accept':'application/json',
-          ...authHeader
-        },
-        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-      }).then(rawData => rawData.json())
-        .then(responseBody => {
-          if(!responseBody.error) {
-            toast.success(`${responseBody.message}`, {closeButton:false});
-            this.setState({
-              orders: responseBody,
-              cartProducts: [],
-            });
-
-            fetch ('http://localhost:5000/carts/userCart', {
-              method: 'delete',
-              headers: {
-                'Content-Type':'application/json',
-                'Accept':'application/json',
-                ...authHeader
-              },
-            }).then(rawData => rawData.json())
-            .then(responseBody => {
-              console.log(responseBody);
-            });
-
-          }
-          else {
-            toast.error(`${responseBody.message}`, {closeButton:false});
-          }
-        });  
+    post('http://localhost:5000/orders/submit',data)
+    .then(responseBody => {
+      if(!responseBody.error) {
+        toast.success(`${responseBody.message}`, {closeButton:false});
+        this.setState({
+          orders: responseBody,
+          cartProducts: [],
+        });
+        remove('http://localhost:5000/carts/userCart');
+        get('http://localhost:5000/orders/user').then(resBody => {
+          this.setState({
+            orders: resBody,
+            ordersLoading: false
+          })
+        });
+      }
+      else {
+        toast.error(`${responseBody.message}`, {closeButton:false});
+      }
+    });  
   }
 
 
-  anotherAddToCartSubmit(e,data) {
+  addToCartSubmit(e,data) {
     e.preventDefault();
-    const authHeader = getAuthHeader;
-     fetch ('http://localhost:5000/carts/add', {
-        method: 'post',
-        headers: {
-          'Content-Type':'application/json',
-          'Accept':'application/json',
-          ...authHeader
-        },
-        body: Object.keys(data).length ? JSON.stringify(data) : undefined,
-      }).then(rawData => rawData.json())
-        .then(responseBody => { 
-         if(!responseBody.error) {
-          toast.success(`${responseBody.message}`, {closeButton:false});
-          }
-          else {
-            toast.error(`${responseBody.message}`, {closeButton:false});
-          }
-        })
-        .then(
-           fetch ('http://localhost:5000/carts/userCart', {
-            method: 'get',
-            headers: {
-              'Content-Type':'application/json',
-              'Accept':'application/json',
-              ...authHeader
-            },
-          }).then(rawData => rawData.json())
-          .then(body => {
-            this.setState({
-              cartProducts: body.products,
-              isLoadingCart: false
-            })
+    post('http://localhost:5000/carts/add',data)
+    .then(responseBody => { 
+      if(!responseBody.error) {
+        toast.success(`${responseBody.message}`, {closeButton:false});
+        get('http://localhost:5000/carts/userCart').then(resBody => {
+          this.setState({
+            cartProducts: resBody,
+            isLoadingCart: false
           })
-        )
-    }
+        })
+      }
+      else {
+        toast.error(`${responseBody.message}`, {closeButton:false});
+      }
+    });
+  }
 
   render () {
     return (
@@ -286,10 +216,9 @@ class App extends Component {
                           <Order 
                             {...props}
                             sweets={this.state.sweets}
-                            orders={this.state.orders}
                             isAdmin={this.state.isAdmin}
                             handleChange={this.handleChange.bind(this)}
-                            anotherAddToCartSubmit={this.anotherAddToCartSubmit.bind(this)}
+                            addToCartSubmit={this.addToCartSubmit.bind(this)}
                           />
                           :
                           <Redirect
@@ -341,6 +270,26 @@ class App extends Component {
                         cartProducts={this.state.cartProducts}
                         isLoadingCart={this.state.isLoadingCart}
                         handleMyCartSubmit={this.handleMyCartSubmit.bind(this)}
+                        />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
+
+                    <Route 
+                      path='/myorders'
+                      render= {
+                      (props) =>
+                      this.state.username ?
+                      <MyOrders
+                        {...props}
+                        username={this.state.username}
+                        orders={this.state.orders}
+                        ordersLoading={this.state.ordersLoading}
                         />
                           :
                           <Redirect

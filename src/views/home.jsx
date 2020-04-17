@@ -14,7 +14,7 @@ class Home extends Component {
                                 <h1>Welcome, {this.props.username}!</h1>
                                 <p>
                                     <Link to="/store">Check the Store</Link>
-                                    <Link to="/orders">View your orders</Link>
+                                    <Link to="/myorders">View your orders</Link>
                                 </p>
                             </div>
                         )
