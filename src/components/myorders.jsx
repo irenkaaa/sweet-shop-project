@@ -1,10 +1,10 @@
 import React from 'react';
 import '../css/mycart.css';
 import Loading from '../views/loading';
+import OrderOne from './order-one';
 
-
-class MyOrders extends React.Component {    
-      render() {
+class MyOrders extends React.Component {
+    render() {
         const {orders, ordersLoading } = this.props;
 
         if(ordersLoading) {
@@ -14,26 +14,14 @@ class MyOrders extends React.Component {
           return (<div className='cart-empty'>Your cart is empty!</div>);
         }
         return (
-          <div className="mycart">
-            <h2>My Orders</h2>
-            <ul>
-                {
-                    orders.map(order => (
-                        <li key={order._id}>
-                            <p>{order.status}</p>
-                            <p>{order.creator}</p>
-                            <ol>
-                                {
-                                    order.products.map(pr => (
-                                        <li>{pr.name}</li>
-                                    ))
-                                }
-                            </ol>
-                        </li>
-                    ))
-                }
-            </ul>         
-          </div>           
+            <div className="mycart">
+                <h2>My Orders</h2>
+                    {
+                        orders.map(order => (
+                            <OrderOne key={order._id} {...order} />
+                        ))
+                    }      
+            </div>           
         )
     }
 }

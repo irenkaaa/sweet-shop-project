@@ -45,6 +45,12 @@ class App extends Component {
         username: localStorage.getItem('username'),
         isAdmin: isAdmin, 
       });
+      get('http://localhost:5000/orders/user').then(resBody => {
+          this.setState({
+            orders: resBody,
+            ordersLoading: false
+          })
+        });
     }
 
     get('http://localhost:5000/sweets/all').then(resBody => {
@@ -81,6 +87,12 @@ class App extends Component {
           localStorage.setItem('isAdmin', responseBody.user.isAdmin);
           localStorage.setItem('token', responseBody.token);
           toast.success(`Welcome, ${responseBody.user.username}`, {closeButton:false});
+          get('http://localhost:5000/orders/user').then(resBody => {
+          this.setState({
+            orders: resBody,
+            ordersLoading: false
+          })
+        });
         }
         else {
           toast.error(`${responseBody.message}`, {closeButton:false});
@@ -125,20 +137,21 @@ class App extends Component {
       if(!responseBody.error) {
         toast.success(`${responseBody.message}`, {closeButton:false});
         this.setState({
-          orders: responseBody,
+          orders: responseBody.data,
           cartProducts: [],
         });
         remove('http://localhost:5000/carts/userCart');
-        get('http://localhost:5000/orders/user').then(resBody => {
-          this.setState({
-            orders: resBody,
-            ordersLoading: false
-          })
-        });
       }
       else {
         toast.error(`${responseBody.message}`, {closeButton:false});
       }
+    }).then(()=>{
+      get('http://localhost:5000/orders/user').then(resBody => {
+        this.setState({
+          orders: resBody,
+          ordersLoading: false
+        })
+      });
     });  
   }
 
