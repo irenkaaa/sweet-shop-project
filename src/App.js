@@ -19,6 +19,7 @@ import Contact from './views/contact';
 import MyCart from './components/mycart';
 import Order from './components/order-window';
 import MyOrders from './components/myorders';
+import ReviewOrders from './components/review-orders';
 
 
 
@@ -35,6 +36,8 @@ class App extends Component {
       isLoading: true,
       isLoadingCart: true,
       ordersLoading: true,
+      ordersForReviewLoading: true,
+      pendingOrders: [],
     };
   }
 
@@ -175,6 +178,18 @@ class App extends Component {
     });
   }
 
+  getPendingOrders(e) {
+    e.preventDefault();
+    get('http://localhost:5000/orders/pending')
+    .then(result => {
+        this.setState({
+          ordersForReviewLoading : false,
+          pendingOrders: result
+        })
+    })
+  }
+
+
   render () {
     return (
       <div className="App">
@@ -312,6 +327,30 @@ class App extends Component {
                         />
                       }
                     />
+
+                    <Route
+                      path='/review-orders'
+                      render= {
+                      (props) =>
+                      this.state.isAdmin ?
+                      <ReviewOrders
+                        {...props}
+                        username={this.state.username}
+                        pendingOrders={this.state.pendingOrders}
+                        ordersForReviewLoading={this.state.ordersForReviewLoading}
+                        getPendingOrders={this.getPendingOrders.bind(this)}
+                        />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
+
+
+
 
                     <Route path='/contact' component={Contact} />
                     <Route component={NotFound} />

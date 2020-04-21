@@ -1,68 +1,63 @@
-div.mycart{
-    padding: 1em 0 3em 0;
-    width: 80%;
-    margin: 0 auto;       
-    text-align: center;
-}
-div.mycart h2{}
-div.mycart div{}
-div.mycart div p{}
-div.mycart div div{}
-div.mycart div div ul{}
-div.mycart div div ul li {}
-div.mycart div div ul p {}
-div.mycart div div ul button {}
-div.mycart div div button {}
-
-
-
-
-
-div.mycart form{
-    width: 90%;
+.myorders{
     margin: 0 auto;
+    padding: 2em 0;
+    width: 90%;
     display: flex;
     flex-direction: column;
-    
 }
-div.mycart form .group{
+.myorders h2{
+    text-align: center;
+}
+.myorders .orderdetails{
+    border: 2px solid rgb(23, 59, 49);
+    padding: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.myorders .orderdetails div.info{
+    flex-direction: row;
     display: flex;
     justify-content: space-around;
 }
-div.mycart form .group input {
-    text-align: center;
-    border-radius: 0.5em;
-    outline: none;
 
-}
-div.mycart form .group label {
-    border-radius: 0.5em;
+.orderdetails div.info p span {
+    color: rgb(185, 46, 21);
 }
 
-.mycart .total-price {
-    align-self: flex-end;
-    width: 20%;
-    margin: 1em;
-   
+.orderdetails div.list{}
+.orderdetails div.list ul{}
+.orderdetails ul li{
+    list-style: none outside;
 }
-.mycart .total-price label{
-    padding-right: 0.5em;
+.orderdetails div.list ul p{
+    padding-top: 2em;
 }
-.mycart .total-price input{
-    padding: 10px;
-    width: 60%;
-    align-self: flex-end;
-    outline: none;
-    font-size: 20px;
-    border: 1px solid rgb(116, 56, 112);
-    background-color: whitesmoke;
+.orderdetails div.list ul button,
+.orderdetails div.list button{
+    padding: 10px 20px;
     border-radius: 0.5em;
+    background-color:rgb(49, 128, 105);
+    color: whitesmoke;
+    border: none;
+    font-size: 18px;
+
 }
-.mycart div.buttons {
-    display: flex;
-    align-items: flex-end;
+     
+.orderdetails div.list > button {
+    margin-left: 40px;
 }
- 
+
+.orderdetails div.list ul button:hover,
+.orderdetails div.list button:hover {
+    background-color:whitesmoke;
+    color: rgb(49, 128, 105);
+
+}
+
+
 .mycart [type="submit"],
 .after-order {
     width: 20%;
@@ -83,7 +78,6 @@ div.mycart form .group label {
     background-color: white;
     border-radius: 0.5em;
     color: rgb(116, 56, 112);
- 
 }
 
 

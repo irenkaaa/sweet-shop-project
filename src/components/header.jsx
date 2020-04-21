@@ -28,7 +28,7 @@ class Header extends Component {
                                             (
                                                 <ul>
                                                     <li><NavLink to="/create">Create</NavLink></li>
-                                                    <li><NavLink to="/orders">Orders</NavLink></li>
+                                                    <li><NavLink to="/review-orders">Review orders</NavLink></li>
                                                 </ul>
                                             )
                                             :

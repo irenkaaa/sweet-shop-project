@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/mycart.css';
+import '../css/myorders.css';
 import Loading from '../views/loading';
-import OrderOne from './order-one';
+import OrderOne from './load-products-from-order';
 
 class MyOrders extends React.Component {
     render() {
@@ -14,7 +14,7 @@ class MyOrders extends React.Component {
           return (<div className='cart-empty'>Your cart is empty!</div>);
         }
         return (
-            <div className="mycart">
+            <div className="myorders">
                 <h2>My Orders</h2>
                     {
                         orders.map(order => (
