@@ -56,6 +56,22 @@ class App extends Component {
         });
     }
 
+    if(isAdmin){
+      get('http://localhost:5000/orders/pending')
+      .then(result => {
+        if(result){
+          this.setState({
+            ordersForReviewLoading : false,
+            pendingOrders: result
+          })
+        } else {
+          this.setState({
+            ordersForReviewLoading: true
+          })
+        }
+      })
+    }
+
     get('http://localhost:5000/sweets/all').then(resBody => {
       this.setState({
         sweets: resBody,
@@ -176,17 +192,6 @@ class App extends Component {
         toast.error(`${responseBody.message}`, {closeButton:false});
       }
     });
-  }
-
-  getPendingOrders(e) {
-    e.preventDefault();
-    get('http://localhost:5000/orders/pending')
-    .then(result => {
-        this.setState({
-          ordersForReviewLoading : false,
-          pendingOrders: result
-        })
-    })
   }
 
 
@@ -338,7 +343,6 @@ class App extends Component {
                         username={this.state.username}
                         pendingOrders={this.state.pendingOrders}
                         ordersForReviewLoading={this.state.ordersForReviewLoading}
-                        getPendingOrders={this.getPendingOrders.bind(this)}
                         />
                           :
                           <Redirect
@@ -348,8 +352,6 @@ class App extends Component {
                         />
                       }
                     />
-
-
 
 
                     <Route path='/contact' component={Contact} />
