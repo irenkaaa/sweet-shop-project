@@ -30,7 +30,8 @@ class StoreDatabase extends Component {
               </div>
          
       </Fragment>
-    )}
+    )
+  }
 }
 
 export default StoreDatabase;

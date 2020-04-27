@@ -38,6 +38,12 @@ div.cake-wrapper div.text-wrapper{
 div.cake-wrapper p.cake-description{
     margin-left: 0.8em;
 }
+div.cake-wrapper div a:first-child {
+    margin-right: 0.3em;
+}
+div.cake-wrapper div a:last-child {
+    margin-left: 0.3em;
+}
 
 a[type="submit"] {
     background-color: rgb(116, 56, 112);
@@ -53,4 +59,20 @@ a[type="submit"]:hover {
     border: 2px solid white;
     font-size: 15px;
     font-weight: bold;
+}
+
+li {
+    list-style: none outside;
+    color: navy;
+}
+
+div.cake-wrapper div button {
+    font-size: 15px;
+    padding: 0.5em;
+    margin: 0.5em;
+
+}
+
+p > span {
+    color: tomato;
 }

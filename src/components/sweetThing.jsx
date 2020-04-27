@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../css/cake.css';
 
 class SweetThing extends React.Component {
-    
     render () {
         const {title,description,price,image,_id} = this.props;
        

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/myorders.css';
+import '../css/order.css';
 import ReviewThisOrder from './review-this-order';
 import Loading from '../views/loading';
 

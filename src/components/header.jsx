@@ -16,7 +16,6 @@ class Header extends Component {
                         <li><NavLink to="/" className="active" aria-current="page">Home</NavLink></li>
                         <li><NavLink to="/store">Store</NavLink></li>
                         <li><NavLink to="/contact">Contact</NavLink></li>
-                        <li><NavLink to="/blog">Blog</NavLink></li>
                         
                         {       
                             username ?
@@ -33,7 +32,10 @@ class Header extends Component {
                                             )
                                             :
                                             (
-                                                <li><NavLink to='/mycart'>My cart</NavLink></li>
+                                                <ul>
+                                                    <li><NavLink to='/mycart'>My cart</NavLink></li>
+                                                    <li><NavLink to="/myorders">My orders</NavLink></li>
+                                                </ul>
                                             )
                                         }
                                         

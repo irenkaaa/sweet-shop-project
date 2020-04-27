@@ -70,6 +70,13 @@ class App extends Component {
           })
         }
       })
+    } else {
+      get('http://localhost:5000/carts/userCart').then(resBody => {
+        this.setState({
+          cartProducts: resBody,
+          isLoadingCart: false
+        })
+      });
     }
 
     get('http://localhost:5000/sweets/all').then(resBody => {
@@ -78,13 +85,7 @@ class App extends Component {
         isLoading:false,
       });
     });
-
-    get('http://localhost:5000/carts/userCart').then(resBody => {
-      this.setState({
-        cartProducts: resBody,
-        isLoadingCart: false
-      })
-    });
+        
    }
 
   handleChange(e){
