@@ -11,7 +11,7 @@ import Login from './components/login';
 import Create from './components/create';
 import StoreDatabase from './components/storeDatabase';
 
-import {get,post,remove} from './data/crud';
+import {get,post,remove, put} from './data/crud';
 
 import NotFound from './views/not-found';
 import Home from './views/home';
@@ -20,6 +20,7 @@ import MyCart from './components/mycart';
 import Order from './components/order-window';
 import MyOrders from './components/myorders';
 import ReviewOrders from './components/review-orders';
+import Change from './components/change-window';
 
 
 
@@ -48,12 +49,6 @@ class App extends Component {
         username: localStorage.getItem('username'),
         isAdmin: isAdmin, 
       });
-      get('http://localhost:5000/orders/user').then(resBody => {
-          this.setState({
-            orders: resBody,
-            ordersLoading: false
-          })
-        });
     }
 
     if(isAdmin){
@@ -76,6 +71,12 @@ class App extends Component {
           cartProducts: resBody,
           isLoadingCart: false
         })
+        get('http://localhost:5000/orders/user').then(resBody => {
+          this.setState({
+            orders: resBody,
+            ordersLoading: false
+          })
+        });
       });
     }
 
@@ -125,6 +126,13 @@ class App extends Component {
     post('http://localhost:5000/sweets/create', data).then(resBody => {
       if(!resBody.error) {
         toast.success(`${resBody.message}`, {closeButton:false});
+        this.setState({isLoading:true})
+        get('http://localhost:5000/sweets/all').then(resBody => {
+        this.setState({
+          sweets: resBody,
+          isLoading:false,  
+        });
+    });
       }
       else {
         toast.error(`${resBody.message}`, {closeButton:false});
@@ -195,6 +203,36 @@ class App extends Component {
     });
   }
 
+  handleChangeOfProduct(e,word,id) {
+    e.preventDefault();
+    if (word === 'edit') {
+      post(`http://localhost:5000/sweets/${word}/${id}`)
+      .then(responseBody => { 
+        if(responseBody) {
+          toast.success(`${responseBody.message}`, {closeButton:false});
+        } else {
+          toast.error(`${responseBody.message}`, {closeButton:false});
+        }
+      });
+    } else if (word === 'delete') {
+      remove(`http://localhost:5000/sweets/${word}/${id}`)
+      .then(responseBody => { 
+        this.setState({isLoading:true});
+        if(responseBody) {
+          toast.success(`${responseBody.message}`, {closeButton:false});
+          get('http://localhost:5000/sweets/all').then(resBody => {
+            this.setState({
+              sweets: resBody,
+              isLoading:false,  
+            });
+          });
+      
+        } else {
+          toast.error(`${responseBody.message}`, {closeButton:false});
+        }
+      });
+    }
+  }
 
   render () {
     return (
@@ -290,6 +328,7 @@ class App extends Component {
                           {...props}
                           sweets={this.state.sweets} 
                           isLoading={this.state.isLoading}
+                          isAdmin={this.state.isAdmin}
                     />}/>
 
 
@@ -354,6 +393,26 @@ class App extends Component {
                       }
                     />
 
+                    <Route
+                      path='/change/:id' 
+                        render= {
+                        (props) => 
+                        this.state.isAdmin ? 
+                          <Change
+                            {...props}
+                            sweets={this.state.sweets}
+                            isAdmin={this.state.isAdmin}
+                            handleChange={this.handleChange.bind(this)}
+                            handleChangeOfProduct={this.handleChangeOfProduct.bind(this)}
+                          />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
 
                     <Route path='/contact' component={Contact} />
                     <Route component={NotFound} />

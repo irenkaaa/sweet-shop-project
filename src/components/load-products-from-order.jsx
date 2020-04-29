@@ -34,7 +34,7 @@ class OrderOne extends React.Component {
 
         return (
 
-            <div class="orderdetails">
+            <div className="orderdetails">
                     <div className="info">
                         <p className="date">Date: <span>{formatDate}</span></p>
                         <p className="number">Order number: <span>{formatDateToOrderNum}</span></p>

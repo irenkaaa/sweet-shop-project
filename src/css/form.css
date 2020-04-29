@@ -21,7 +21,8 @@
     text-align: left;
 }
 
-.form-wrapper input{
+.form-wrapper input,
+.form-group textarea {
    padding: 10px;
    outline: none;
    font-size: 20px;

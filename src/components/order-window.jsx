@@ -7,9 +7,7 @@ class Order extends React.Component {
   render() {
     const url = this.props.match.params.id;
     const data = this.props.sweets.find(el => el._id === url);
-    const {isAdmin} = this.props;
     
-
     return (
       <div className="order-wrapper">
         <h2>Let us take your order and add it to your cart</h2>
@@ -26,12 +24,7 @@ class Order extends React.Component {
             <p>All shown prices are in BGN - bulgarian leva</p>
         </form>
         <Link className='after-order' to="/store">Go to the Store</Link>
-        {
-          isAdmin ?
-          null
-          :
-          (<Link className='after-order' to="/mycart">Go to My cart</Link>)
-        }
+        <Link className='after-order' to="/mycart">Go to My cart</Link>
       </div>
     );
   }

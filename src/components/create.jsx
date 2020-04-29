@@ -6,7 +6,7 @@ class Create extends Component {
         super(props);
         this.state = {
             title: '',
-            description: '',
+            description: 'Enter description',
             image: '',
             price: '',
         };
@@ -28,7 +28,7 @@ class Create extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="description">Description</label>
-                            <input onChange={this.handleChange} type="text" name="description" id="description" placeholder="Enter description" value={description}/>
+                            <textarea  rows="5" cols="35" onChange={this.handleChange} name='description' defaultValue={description} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="image">Image URL</label>
