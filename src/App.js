@@ -11,7 +11,7 @@ import Login from './components/login';
 import Create from './components/create';
 import StoreDatabase from './components/storeDatabase';
 
-import {get,post,remove, put} from './data/crud';
+import {get,post,remove} from './data/crud';
 
 import NotFound from './views/not-found';
 import Home from './views/home';
@@ -65,7 +65,7 @@ class App extends Component {
           })
         }
       })
-    } else {
+    } else if (localStorage.getItem('username')) {
       get('http://localhost:5000/carts/userCart').then(resBody => {
         this.setState({
           cartProducts: resBody,
@@ -203,13 +203,20 @@ class App extends Component {
     });
   }
 
-  handleChangeOfProduct(e,word,id) {
+  handleChangeOfProduct(e,word,id,data) {
     e.preventDefault();
     if (word === 'edit') {
-      post(`http://localhost:5000/sweets/${word}/${id}`)
+      post(`http://localhost:5000/sweets/${word}/${id}`,data)
       .then(responseBody => { 
-        if(responseBody) {
+        this.setState({isLoading:true});
+        if(!responseBody.error) {
           toast.success(`${responseBody.message}`, {closeButton:false});
+          get('http://localhost:5000/sweets/all').then(resBody => {
+            this.setState({
+              sweets: resBody,
+              isLoading:false,  
+            });
+          });
         } else {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
@@ -218,7 +225,7 @@ class App extends Component {
       remove(`http://localhost:5000/sweets/${word}/${id}`)
       .then(responseBody => { 
         this.setState({isLoading:true});
-        if(responseBody) {
+        if(!responseBody.error) {
           toast.success(`${responseBody.message}`, {closeButton:false});
           get('http://localhost:5000/sweets/all').then(resBody => {
             this.setState({
@@ -226,7 +233,6 @@ class App extends Component {
               isLoading:false,  
             });
           });
-      
         } else {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
@@ -257,6 +263,7 @@ class App extends Component {
                       <Home
                         {...props}
                         username={this.state.username}
+                        isAdmin={this.state.isAdmin}
                         sweets={this.state.sweets}
                     />}/>
 
@@ -400,9 +407,7 @@ class App extends Component {
                         this.state.isAdmin ? 
                           <Change
                             {...props}
-                            sweets={this.state.sweets}
                             isAdmin={this.state.isAdmin}
-                            handleChange={this.handleChange.bind(this)}
                             handleChangeOfProduct={this.handleChangeOfProduct.bind(this)}
                           />
                           :
