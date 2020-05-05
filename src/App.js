@@ -124,7 +124,7 @@ class App extends Component {
   handleSubmitCreate(e,data) {
     e.preventDefault();
     post('http://localhost:5000/sweets/create', data).then(resBody => {
-      if(!resBody.error) {
+      if(resBody.success) {
         toast.success(`${resBody.message}`, {closeButton:false});
         this.setState({isLoading:true})
         get('http://localhost:5000/sweets/all').then(resBody => {
@@ -162,7 +162,7 @@ class App extends Component {
     e.preventDefault();
     post('http://localhost:5000/orders/submit',data)
     .then(responseBody => {
-      if(!responseBody.error) {
+      if(responseBody.success) {
         toast.success(`${responseBody.message}`, {closeButton:false});
         this.setState({
           orders: responseBody.data,
@@ -188,7 +188,7 @@ class App extends Component {
     e.preventDefault();
     post('http://localhost:5000/carts/add',data)
     .then(responseBody => { 
-      if(!responseBody.error) {
+      if(responseBody.success) {
         toast.success(`${responseBody.message}`, {closeButton:false});
         get('http://localhost:5000/carts/userCart').then(resBody => {
           this.setState({
@@ -209,7 +209,7 @@ class App extends Component {
       post(`http://localhost:5000/sweets/${word}/${id}`,data)
       .then(responseBody => { 
         this.setState({isLoading:true});
-        if(!responseBody.error) {
+        if(responseBody.success) {
           toast.success(`${responseBody.message}`, {closeButton:false});
           get('http://localhost:5000/sweets/all').then(resBody => {
             this.setState({

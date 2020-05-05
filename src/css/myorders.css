@@ -87,3 +87,22 @@
   margin: 3em;
 
 }
+.myorders .important-info {
+    margin-bottom: 0.5em;
+}
+
+.myorders .important-info {
+    border: 2px solid rgb(153, 5, 5);
+    padding: 0.5em;
+}
+
+.myorders .important-info h4{
+    text-align: center;
+}
+.myorders .important-info > p > span {
+    text-decoration: underline;
+    color: rgb(153, 5, 5);
+}
+.myorders .important-info p{
+
+}
