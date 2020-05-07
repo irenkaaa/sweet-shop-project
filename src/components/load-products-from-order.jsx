@@ -28,15 +28,15 @@ class OrderOne extends React.Component {
 
      totalSumForOrder(aOrderProductsList){
         let totalSumToBePaid=0;
-         aOrderProductsList.map(el=>{
+         aOrderProductsList.forEach(el=>{
              totalSumToBePaid += el.product[0].fSum;
          })
-         return totalSumToBePaid
+         return totalSumToBePaid;
          
       }
 
     render() {
-        const { buttonIsActive,aOrderProductsList,totalSumForOrder } = this.state;
+        const { buttonIsActive,aOrderProductsList } = this.state;
         const { date,status, _id } = this.props;
         const formatDate = moment(date).format('DD MMMM YYYY');
         const formatDateToOrderNum = moment(date).format('HHMMSS');
