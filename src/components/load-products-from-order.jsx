@@ -26,12 +26,20 @@ class OrderOne extends React.Component {
         
      }
 
+     totalSumForOrder(aOrderProductsList){
+        let totalSumToBePaid=0;
+         aOrderProductsList.map(el=>{
+             totalSumToBePaid += el.product[0].fSum;
+         })
+         return totalSumToBePaid
+         
+      }
+
     render() {
-        const { buttonIsActive,aOrderProductsList } = this.state;
+        const { buttonIsActive,aOrderProductsList,totalSumForOrder } = this.state;
         const { date,status, _id } = this.props;
         const formatDate = moment(date).format('DD MMMM YYYY');
         const formatDateToOrderNum = moment(date).format('HHMMSS');
-
         return (
 
             <div className="orderdetails">
@@ -47,10 +55,10 @@ class OrderOne extends React.Component {
                                 <ul>
                                     {
                                         aOrderProductsList.map( l => (
-                                            <li key={l._id}>{l.product[0].title} - {l.product[0].price}</li>
+                                            <li key={l._id}>{l.product[0].data.title} - {l.product[0].quantity} { (l.product[0].quantity >=2) ? 'pieces':'piece'} with {l.product[0].data.price} for piece => sum: {l.product[0].fSum}</li>
                                         ))
                                     } 
-                                    <p>Total: money</p>
+                                    <p>Total: {this.totalSumForOrder(aOrderProductsList)}</p>
                                     <button>Hide</button> 
                                 </ul>
                             )

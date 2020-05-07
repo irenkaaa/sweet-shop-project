@@ -13,23 +13,23 @@ class MyOrders extends React.Component {
           return <Loading />;
         }
         if(!orders.length && !ordersLoading) {
-          return (<div className='cart-empty'>Your cart is empty!</div>);
+          return (<div className='cart-empty'>Your dont have any orders yet!</div>);
         }
         return (
             <div className="myorders">
                 <h2>My Orders</h2>
+                    {
+                        orders.map(order => (
+                            <OrderOne key={order._id} {...order} />
+                        ))
+                    }
                 <div className='important-info'>
                     <h4><FontAwesomeIcon icon={faExclamation} color="red" /> Legend of an order Status! <FontAwesomeIcon icon={faExclamation} color="red" /></h4>
                     <p><span>Pending</span> - order awaits approval - admin needs to check the availability of the items in your order</p>
                     <p><span>Cancelled</span> - order is cancelled - no availability of the items or problem with the order (contact us for details)</p>
                     <p><span>Approved</span> - order is approved - the approval means that we have all the products in your order and you can make 
                     the payment for your order and after it will be dispatched towards you</p>
-                </div>
-                    {
-                        orders.map(order => (
-                            <OrderOne key={order._id} {...order} />
-                        ))
-                    }      
+                </div>     
             </div>           
         )
     }

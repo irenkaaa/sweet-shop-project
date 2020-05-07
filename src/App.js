@@ -17,7 +17,7 @@ import NotFound from './views/not-found';
 import Home from './views/home';
 import Contact from './views/contact';
 import MyCart from './components/mycart';
-import Order from './components/order-window';
+import AddToCart from './components/add-to-cart-window';
 import MyOrders from './components/myorders';
 import ReviewOrders from './components/review-orders';
 import Change from './components/change-window';
@@ -292,11 +292,10 @@ class App extends Component {
                         render= {
                         (props) => 
                         this.state.username ? 
-                          <Order 
+                          <AddToCart 
                             {...props}
                             sweets={this.state.sweets}
                             isAdmin={this.state.isAdmin}
-                            handleChange={this.handleChange.bind(this)}
                             addToCartSubmit={this.addToCartSubmit.bind(this)}
                           />
                           :
