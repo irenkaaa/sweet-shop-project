@@ -59,10 +59,6 @@ class App extends Component {
             ordersForReviewLoading : false,
             pendingOrders: result
           })
-        } else {
-          this.setState({
-            ordersForReviewLoading: true
-          })
         }
       })
     } else if (localStorage.getItem('username')) {

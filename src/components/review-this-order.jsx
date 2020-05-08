@@ -15,7 +15,7 @@ class ReviewThisOrder extends React.Component {
     handleOrderStatus(data){
         post(`http://localhost:5000/orders/approve/${data}`)
           .then(result => {
-            if(result) {
+            if(result.success) {
                 this.setState({isPending:false})
                 toast.success(`${result.message}`, {closeButton:false});
             }
@@ -28,7 +28,7 @@ class ReviewThisOrder extends React.Component {
     handleCancelOrder(data){
         post(`http://localhost:5000/orders/cancel/${data}`)
           .then(result => {
-            if(result) {
+            if(result.success) {
                 this.setState({isPending:false})
                 toast.success( `${result.message}`, {closeButton:false});
             }

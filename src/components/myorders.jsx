@@ -3,7 +3,7 @@ import '../css/myorders.css';
 import Loading from '../views/loading';
 import OrderOne from './load-products-from-order';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faExclamation, faStar } from '@fortawesome/free-solid-svg-icons';
 
 class MyOrders extends React.Component {
     render() {
@@ -17,7 +17,7 @@ class MyOrders extends React.Component {
         }
         return (
             <div className="myorders">
-                <h2>My Orders</h2>
+                <h2>My Orders <FontAwesomeIcon icon={faStar} color="red" className='star'/> </h2>
                     {
                         orders.map(order => (
                             <OrderOne key={order._id} {...order} />
