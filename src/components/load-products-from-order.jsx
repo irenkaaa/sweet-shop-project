@@ -40,33 +40,34 @@ class OrderOne extends React.Component {
         const { date,status, _id } = this.props;
         const formatDate = moment(date).format('DD MMMM YYYY');
         const formatDateToOrderNum = moment(date).format('HHMMSS');
+
         return (
 
             <div className="orderdetails">
-                    <div className="info">
-                        <p className="date">Date: <span>{formatDate}</span></p>
-                        <p className="number">Order number: <span>{formatDateToOrderNum}</span></p>
-                        <p className="status">Status: <span>{status}</span></p>
-                    </div>
-                    <div className='list' onClick={() => this.onClickChange(_id)}>
-                        {
-                            buttonIsActive ? 
-                            (
-                                <ul>
-                                    {
-                                        aOrderProductsList.map( l => (
-                                            <li key={l._id}>{l.product[0].data.title} - {l.product[0].quantity} { (l.product[0].quantity >=2) ? 'pieces':'piece'} with {l.product[0].data.price} for piece => sum: {l.product[0].fSum}</li>
-                                        ))
-                                    } 
-                                    <p>Total: {this.totalSumForOrder(aOrderProductsList)}</p>
-                                    <button>Hide</button> 
-                                </ul>
-                            )
-                            : 
-                        
-                            <button>Load more information</button>
-                        }  
-                    </div>        
+                <div className="info">
+                    <p className="date">Date: <span>{formatDate}</span></p>
+                    <p className="number">Order number: <span>{formatDateToOrderNum}</span></p>
+                    <p className="status">Status: <span>{status}</span></p>
+                </div>
+                <div className='list' onClick={() => this.onClickChange(_id)}>
+                    {
+                        buttonIsActive ? 
+                        (
+                            <ul>
+                                {
+                                    aOrderProductsList.map( l => (
+                                        <li key={l._id}>{l.product[0].data.title} - {l.product[0].quantity} { (l.product[0].quantity >=2) ? 'pieces':'piece'} with {l.product[0].data.price} for piece => sum: {l.product[0].fSum}</li>
+                                    ))
+                                } 
+                                <p>Total: {this.totalSumForOrder(aOrderProductsList)}</p>
+                                <button>Hide</button> 
+                            </ul>
+                        )
+                        : 
+                    
+                        <button>Load more information</button>
+                    }  
+                </div>        
             </div>
         )
     }

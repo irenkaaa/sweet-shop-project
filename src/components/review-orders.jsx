@@ -20,7 +20,10 @@ class ReviewOrders extends React.Component {
                 <h2>Orders</h2>
                     {
                         pendingOrders.map(order =>(
-                            <ReviewThisOrder key={order._id} {...order}/>
+                            <ReviewThisOrder key={order._id} {...order} 
+                                handleCancelOrder={this.props.handleCancelOrder.bind(this)}
+                                handleApproveOrder={this.props.handleApproveOrder.bind(this)}
+                            />
                         ))
                     }
             </div>           

@@ -236,6 +236,48 @@ class App extends Component {
     }
   }
 
+  handleApproveOrder(e,data){
+    e.preventDefault();
+    post(`http://localhost:5000/orders/approve/${data}`)
+      .then(result => {
+        if(result.success) {
+            toast.success(`${result.message}`, {closeButton:false});
+            get('http://localhost:5000/orders/pending').then(res => {
+              if(res){
+                this.setState({
+                  ordersForReviewLoading : false,
+                  pendingOrders: res
+                })
+              }
+            })
+        }
+        else {
+            toast.error(`${result.message}`, {closeButton:false});
+        }
+    })       
+  }
+
+  handleCancelOrder(e,data){
+    e.preventDefault();
+    post(`http://localhost:5000/orders/cancel/${data}`)
+      .then(result => {
+        if(result.success) {
+            toast.success( `${result.message}`, {closeButton:false});
+            get('http://localhost:5000/orders/pending').then(res => {
+              if(res){
+                this.setState({
+                  ordersForReviewLoading : false,
+                  pendingOrders: res
+                })
+              }
+            })
+        }
+        else {
+            toast.error(`${result.message}`, {closeButton:false});
+        }
+    })       
+  }
+
   render () {
     return (
       <div className="App">
@@ -385,6 +427,8 @@ class App extends Component {
                         username={this.state.username}
                         pendingOrders={this.state.pendingOrders}
                         ordersForReviewLoading={this.state.ordersForReviewLoading}
+                        handleApproveOrder={this.handleApproveOrder.bind(this)}
+                        handleCancelOrder={this.handleCancelOrder.bind(this)}
                         />
                           :
                           <Redirect
