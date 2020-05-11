@@ -107,3 +107,16 @@
 .myorders > h2 > .star {
     size: 1em;
 }
+
+.myorders .payment-link {
+    text-decoration: none;
+    background: #f44336;
+    color: white;
+    padding: 0.3em;
+    border-radius: 0.5em;
+}
+
+.myorders .payment-link:hover {
+    background:#48be48;
+    color: #f44336;
+}

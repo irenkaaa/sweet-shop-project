@@ -2,6 +2,7 @@ import React from 'react';
 import * as moment from 'moment';
 import '../css/myorders.css';
 import { get } from '../data/crud';
+import { Link } from 'react-router-dom';
 
 class OrderOne extends React.Component {
     state = {
@@ -48,6 +49,12 @@ class OrderOne extends React.Component {
                     <p className="date">Date: <span>{formatDate}</span></p>
                     <p className="number">Order number: <span>{formatDateToOrderNum}</span></p>
                     <p className="status">Status: <span>{status}</span></p>
+                    {
+                        status === 'Approved' ? 
+                            (<Link to={`/payment/${_id}`} className='payment-link'>Pay Order</Link>) 
+                            :
+                            (null)
+                    }  
                 </div>
                 <div className='list' onClick={() => this.onClickChange(_id)}>
                     {
@@ -67,7 +74,7 @@ class OrderOne extends React.Component {
                     
                         <button>Load more information</button>
                     }  
-                </div>        
+                </div>
             </div>
         )
     }

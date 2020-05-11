@@ -21,6 +21,8 @@ import AddToCart from './components/add-to-cart-window';
 import MyOrders from './components/myorders';
 import ReviewOrders from './components/review-orders';
 import Change from './components/change-window';
+import Payment from './views/payment-view';
+import NotWorking from './views/not-working';
 
 
 
@@ -51,7 +53,6 @@ class App extends Component {
       });
     }
 
-    if(isAdmin){
       get('http://localhost:5000/orders/pending')
       .then(result => {
         if(result){
@@ -60,27 +61,25 @@ class App extends Component {
             pendingOrders: result
           })
         }
-      })
-    } else if (localStorage.getItem('username')) {
+      });
       get('http://localhost:5000/carts/userCart').then(resBody => {
         this.setState({
           cartProducts: resBody,
           isLoadingCart: false
         })
-        get('http://localhost:5000/orders/user').then(resBody => {
-          this.setState({
-            orders: resBody,
-            ordersLoading: false
-          })
-        });
+      })
+      get('http://localhost:5000/orders/user').then(resBody => {
+         this.setState({
+          orders: resBody,
+          ordersLoading: false
+        })
       });
-    }
 
     get('http://localhost:5000/sweets/all').then(resBody => {
       this.setState({
         sweets: resBody,
         isLoading:false,
-      });
+      })
     });
         
    }
@@ -458,7 +457,27 @@ class App extends Component {
                       }
                     />
 
+                    <Route
+                      path='/payment/:id' 
+                        render= {
+                        (props) => 
+                        this.state.username ? 
+                          <Payment
+                            {...props}
+                            handleSubmitCreate={this.handleSubmitCreate.bind(this)} 
+                            handleChange={this.handleChange} 
+                          />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
+
                     <Route path='/contact' component={Contact} />
+                    <Route path='/not-working' component={NotWorking} />
                     <Route component={NotFound} />
                   </Switch>
                   <Footer />
