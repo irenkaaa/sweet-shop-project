@@ -53,7 +53,13 @@ div.promotions {
     margin: 2rem auto;
 }
 
-div.promotions p {
+div.promotions h3 {
+    text-align: center;
+}
+
+div.promotions a {
+    text-decoration: none;
+    color: #000000;
     align-items: center;
     padding: 1em;
     font-size: 1.5em;
@@ -61,7 +67,7 @@ div.promotions p {
     background: rgb(167, 108, 130);
 }
 
-div.promotions p:hover {
+div.promotions a:hover {
     box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.62);
     border: 0px solid #000000;
 }

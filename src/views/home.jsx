@@ -4,7 +4,7 @@ import '../css/home.css';
 
 class Home extends Component {
     
-    render() {
+    render() {        
         return (
             <main>
                 {
@@ -40,9 +40,9 @@ class Home extends Component {
 
 
                 <div className='promotions'>
-                    <p>Free Delivery above 50 leva!</p>
-                    <p>Get 10% discount for orders above 200 leva!</p>
-                    <p>5% discount for New Members!</p>
+                    <a href='https://www.healthline.com/nutrition/7-health-benefits-dark-chocolate'>7 Proven Health Benefits of Dark Chocolate</a>
+                    <a href='https://www.health.com/mind-body/the-reason-why-sweets-lift-your-spirits'>Why sweets lift your spirits</a>
+                    <a href='https://www.mashed.com/102706/popular-cake-year-born/'>Most popular cake by the year of birth</a>
                 </div>
 
                 
