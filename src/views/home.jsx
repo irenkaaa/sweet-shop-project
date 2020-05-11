@@ -17,7 +17,7 @@ class Home extends Component {
                                     {
                                         this.props.isAdmin ?
                                         (
-                                            <Link to="/review-orders">Review orders</Link>
+                                            <Link to="/users">Check Users</Link>
                                         )
                                         :
                                         (

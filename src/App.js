@@ -11,7 +11,7 @@ import Login from './components/login';
 import Create from './components/create';
 import StoreDatabase from './components/storeDatabase';
 
-import {get,post,remove} from './data/crud';
+import {get,post,remove, put} from './data/crud';
 
 import NotFound from './views/not-found';
 import Home from './views/home';
@@ -23,6 +23,7 @@ import ReviewOrders from './components/review-orders';
 import Change from './components/change-window';
 import Payment from './views/payment-view';
 import NotWorking from './views/not-working';
+import Users from './components/users';
 
 
 
@@ -41,6 +42,7 @@ class App extends Component {
       ordersLoading: true,
       ordersForReviewLoading: true,
       pendingOrders: [],
+      loadUsers: ''
     };
   }
 
@@ -81,6 +83,12 @@ class App extends Component {
         isLoading:false,
       })
     });
+
+    get('http://localhost:5000/users/all').then(resBody => {
+      this.setState({
+        loadUsers: resBody.data,
+      });
+  })
         
    }
 
@@ -277,6 +285,42 @@ class App extends Component {
     })       
   }
 
+
+  promoteUser(e,data){
+    e.preventDefault();
+    put(`http://localhost:5000/users/user/${data}`)
+      .then(result => {
+        if(result.success) {
+            toast.success(`${result.message}`, {closeButton:false});
+            get('http://localhost:5000/users/all').then(resBody => {
+              this.setState({
+                loadUsers: resBody.data,
+              });
+            })
+        }
+        else {
+            toast.error(`${result.message}`, {closeButton:false});
+        }
+    })       
+  }
+
+  deleteUser(e,data){
+    e.preventDefault();
+    remove(`http://localhost:5000/users/user/${data}`)
+    .then(result => {
+      if(result.success) {
+          toast.success(`${result.message}`, {closeButton:false});
+          get('http://localhost:5000/users/all').then(resBody => {
+            this.setState({
+              loadUsers: resBody.data,
+            });
+          })
+      }
+      else {
+          toast.error(`${result.message}`, {closeButton:false});
+      }
+    })       
+  }
   render () {
     return (
       <div className="App">
@@ -467,6 +511,27 @@ class App extends Component {
                             handleSubmitCreate={this.handleSubmitCreate.bind(this)} 
                             handleChange={this.handleChange} 
                           />
+                          :
+                          <Redirect
+                        to= {{
+                          pathname:'/login'
+                        }}
+                        />
+                      }
+                    />
+
+                    <Route 
+                      path='/users'
+                      render= {
+                      (props) =>
+                      this.state.isAdmin ?
+                      <Users
+                        {...props}
+                        isAdmin={this.state.isAdmin}
+                        loadUsers={this.state.loadUsers}
+                        promoteUser={this.promoteUser.bind(this)}
+                        deleteUser={this.deleteUser.bind(this)}
+                        />
                           :
                           <Redirect
                         to= {{
