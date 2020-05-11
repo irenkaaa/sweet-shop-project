@@ -33,17 +33,12 @@ class Payment extends Component {
     
         
     render() {
-        const { email } = this.props;
         const { emailPayPal, passwordPayPal, selectedOptionPayment } = this.state;
     
         return(
             <div className="form-wrapper">
                 <h1>Payment Page</h1>
                 <form>
-                    <div className="form-group">
-                        <label htmlFor="email">Your e-mail</label>
-                        <input type="text" name="email" id="email" value={email} />
-                    </div>
                     <div className='form-group'>
                         <h3>Is this order a gift?</h3>
                         <input type="radio" value="Yes" checked={this.state.selectedOptionGift === "Yes"} onChange={this.radioChangeGift} />Yes
