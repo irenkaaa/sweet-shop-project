@@ -6,7 +6,7 @@ class Payment extends Component {
     constructor(props){
         super(props);
         this.state={
-          address: 'Sofia',
+          city: 'Sofia',
           selectedOptionGift: '',
           selectedOptionPayment: 'Card',
           emailPayPal : '',
@@ -14,9 +14,14 @@ class Payment extends Component {
         }
     
     
-        this.handleChange = props.handleChange.bind(this);
+        this.handleChangeCity = this.handleChangeCity.bind(this);
         this.radioChangeGift = this.radioChangeGift.bind(this);
         this.radioChangePayment = this.radioChangePayment.bind(this);
+    }
+    handleChangeCity(e){
+        this.setState({
+            city : e.target.value
+        });
     }
 
     radioChangeGift(e){
@@ -45,8 +50,8 @@ class Payment extends Component {
                         <input type="radio" value="No" checked={this.state.selectedOptionGift === "No"} onChange={this.radioChangeGift} />No
                     </div>
                     <div className="form-group">
-                        <label htmlFor="address">Billing address</label>  
-                        <select value={this.state.address} onChange={this.handleChange}>
+                        <label htmlFor="city">Billing address</label>  
+                        <select value={this.state.city} onChange={this.handleChangeCity}>
                             <option value="Sofia">Sofia</option>
                             <option value="Plovdiv">Plovdiv</option>
                             <option value="Varna">Varna</option>
