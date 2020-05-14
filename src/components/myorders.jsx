@@ -20,7 +20,7 @@ class MyOrders extends React.Component {
                 <h2>My Orders <FontAwesomeIcon icon={faStar} color="red" className='star'/> </h2>
                     {
                         orders.map(order => (
-                            <OrderOne key={order._id} {...order} />
+                            <OrderOne key={order._id} {...order} deleteCancelledOrder={this.props.deleteCancelledOrder.bind(this)} />
                         ))
                     }
                 <div className='important-info'>

@@ -18,7 +18,11 @@ handleChange(event) {
 }
  
   getSum(q,p){
-    return Number(q)*Number(p);
+    if(q >= 10){
+      return  (Number(q)*Number(p))*0.9;
+    } else {
+      return Number(q)*Number(p);
+    }
   }
 
   render() {
@@ -48,16 +52,16 @@ handleChange(event) {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option value="5">10</option>
-                <option value="5">12</option>
-                <option value="5">15</option>
-                <option value="5">30</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
               </select>
             </div>
+            <p className="additional-info">Orders for whole cake <span>10 or 12 pieces</span> will be <span>10%</span> less of the price</p>
             
             <div className="form-group">
               <label htmlFor="sum">Sum</label>
               <input type="text" name="sum" id="sum" value={fSum} readOnly="readonly"/>
+              {(quantity>=10) ? <span>10% discount included</span> : null}
             </div>
             <button type="submit">Add to Cart</button>
             <p>All shown prices are in BGN - bulgarian leva</p>

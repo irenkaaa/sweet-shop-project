@@ -326,7 +326,25 @@ class App extends Component {
       }
     })       
   }
-  
+
+  deleteCancelledOrder(e,data) {
+    e.preventDefault();
+    remove(`http://localhost:5000/orders/deleteorder/${data}`)
+      .then(result => {
+        if(result.success) {
+            toast.success( `${result.message}`, {closeButton:false});
+            get('http://localhost:5000/orders/user').then(resBody => {
+              this.setState({
+                orders: resBody,
+                ordersLoading: false
+              })
+            });
+        }
+        else {
+            toast.error(`${result.message}`, {closeButton:false});
+        }
+    })       
+  }
   render () {
     return (
       <div className="App">
@@ -456,6 +474,7 @@ class App extends Component {
                         username={this.state.username}
                         orders={this.state.orders}
                         ordersLoading={this.state.ordersLoading}
+                        deleteCancelledOrder={this.deleteCancelledOrder.bind(this)}
                         />
                           :
                           <Redirect

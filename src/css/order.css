@@ -21,7 +21,8 @@
     text-align: left;
 }
 
-.order-wrapper input{
+.order-wrapper input,
+.order-wrapper select {
    padding: 10px;
    outline: none;
    font-size: 20px;

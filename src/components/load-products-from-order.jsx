@@ -55,6 +55,12 @@ class OrderOne extends React.Component {
                             :
                             (null)
                     }  
+                    {
+                        status === 'Cancelled' ? 
+                            (<button onClick={(e)=> this.props.deleteCancelledOrder(e,_id)}>Delete</button>) 
+                            :
+                            (null)
+                    }  
                 </div>
                 <div className='list' onClick={() => this.onClickChange(_id)}>
                     {

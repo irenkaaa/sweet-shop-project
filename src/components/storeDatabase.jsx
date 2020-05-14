@@ -21,7 +21,7 @@ class StoreDatabase extends Component {
        
       <Fragment>
           <h2 className='sweets-page-h2'>All the sweets in one place</h2>
-          
+          <h4>Orders for whole cake (10/12 pieces) will be 10% less of the price</h4>
               <div className="cakes">
               {
                 isAdmin ? 

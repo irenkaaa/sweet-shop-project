@@ -64,3 +64,8 @@
     margin: 10px;
     border: 2px solid rgb(34, 170, 130);
 }
+
+form p > span {
+    color: rgb(228, 32, 32);
+    text-decoration: underline;
+}
