@@ -31,7 +31,7 @@ handleChange(event) {
     return (
       <div className="order-wrapper">
         <h2>Let us take your order and add it to your cart</h2>
-        <form onSubmit={ (e) => this.props.addToCartSubmit(e, newData)}>
+        <form onSubmit={ (e) => this.props.addToCartSubmit(e, newData, this.props)}>
             <div className="form-group">
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" value={data.title} readOnly="readonly"/>
@@ -48,6 +48,10 @@ handleChange(event) {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="5">10</option>
+                <option value="5">12</option>
+                <option value="5">15</option>
+                <option value="5">30</option>
               </select>
             </div>
             

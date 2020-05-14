@@ -41,7 +41,7 @@ class Change extends React.Component {
     return (
       <div className="order-wrapper">
         <h2>Change</h2>
-        <form onSubmit={ (e) => this.props.handleChangeOfProduct(e, word, id, this.state)}>
+        <form onSubmit={ (e) => this.props.handleChangeOfProduct(e, word, id, this.state,this.props)}>
             <div className="form-group">
                 <label htmlFor="title">Title</label>
                 <input onChange={this.handleChangeEdit.bind(this)} type="text" name="title" id="title" value={title}/>

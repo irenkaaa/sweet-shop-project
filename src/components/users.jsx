@@ -18,7 +18,7 @@ class Users extends Component {
                                         <li key={user._id}>
                                             {user.username} with id: {user._id} 
                                             {
-                                                (user.roles === 'Admin') ? ( null ) : 
+                                                (user.roles == 'Admin') ? ( null ) : 
                                                 (
                                                     <span>
                                                         <button onClick={(e) => this.props.promoteUser(e, user._id)}>Promote to Admin</button>

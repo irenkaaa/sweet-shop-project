@@ -98,7 +98,7 @@ class App extends Component {
     });
   }
 
-  handleSubmit(e,data,isSign) {
+  handleSubmit(e,data,isSign,props) {
     e.preventDefault();
      post('http://localhost:5000/auth/' + (isSign ? 'signup' : 'login'),data).then(responseBody => {
         if(responseBody.user) { 
@@ -117,6 +117,7 @@ class App extends Component {
             ordersLoading: false
           })
         });
+          props.history.push('/')
         }
         else {
           toast.error(`${responseBody.message}`, {closeButton:false});
@@ -124,18 +125,19 @@ class App extends Component {
       })
     }   
 
-  handleSubmitCreate(e,data) {
+  handleSubmitCreate(e,data,props) {
     e.preventDefault();
     post('http://localhost:5000/sweets/create', data).then(resBody => {
       if(resBody.success) {
         toast.success(`${resBody.message}`, {closeButton:false});
         this.setState({isLoading:true})
         get('http://localhost:5000/sweets/all').then(resBody => {
-        this.setState({
-          sweets: resBody,
-          isLoading:false,  
+          this.setState({
+            sweets: resBody,
+            isLoading:false,  
+          });
         });
-    });
+        props.history.push('/store');
       }
       else {
         toast.error(`${resBody.message}`, {closeButton:false});
@@ -155,9 +157,9 @@ class App extends Component {
         username: '',
         isAdmin: '',
       });   
-      toast.success(`Successful, logout`, {closeButton:false});   
+      toast.success(`Successful, logout`, {closeButton:false}); 
     } catch (error) {
-      toast.error(`Smth is wrong`, {closeButton:false});
+      toast.error(`Something is wrong`, {closeButton:false});
     }    
   }
 
@@ -187,7 +189,7 @@ class App extends Component {
   }
 
 
-  addToCartSubmit(e,data) {
+  addToCartSubmit(e,data,props) {
     e.preventDefault();
     post('http://localhost:5000/carts/add',data)
     .then(responseBody => { 
@@ -199,6 +201,7 @@ class App extends Component {
             isLoadingCart: false
           })
         })
+        props.history.push('/store');
       }
       else {
         toast.error(`${responseBody.message}`, {closeButton:false});
@@ -206,7 +209,7 @@ class App extends Component {
     });
   }
 
-  handleChangeOfProduct(e,word,id,data) {
+  handleChangeOfProduct(e,word,id,data,props) {
     e.preventDefault();
     if (word === 'edit') {
       post(`http://localhost:5000/sweets/${word}/${id}`,data)
@@ -220,6 +223,7 @@ class App extends Component {
               isLoading:false,  
             });
           });
+          props.history.push('/store');
         } else {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
@@ -236,6 +240,7 @@ class App extends Component {
               isLoading:false,  
             });
           });
+          props.history.push('/store');
         } else {
           toast.error(`${responseBody.message}`, {closeButton:false});
         }
@@ -321,6 +326,7 @@ class App extends Component {
       }
     })       
   }
+  
   render () {
     return (
       <div className="App">

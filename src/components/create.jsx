@@ -21,7 +21,7 @@ class Create extends Component {
           
                 <div className="form-wrapper">
                     <h1>Create New Sweet Thing</h1>
-                    <form onSubmit={ (e) => this.props.handleSubmitCreate(e, this.state)}>
+                    <form onSubmit={ (e) => this.props.handleSubmitCreate(e, this.state, this.props)}>
                         <div className="form-group">
                             <label htmlFor="title">Title</label>
                             <input onChange={this.handleChange} type="text" name="title" id="title" placeholder="Enter name of the Sweet" value={title}/>

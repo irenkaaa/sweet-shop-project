@@ -16,7 +16,7 @@ class SweetThing extends React.Component {
                     <div className='text-wrapper'>
                         <p className="cake-description">{description}</p>
                         <p className="cake-price">{price} leva/piece</p>
-                        <p className="additional-info">Whole cake order info: 12 pieces - 70leva</p>
+                        <p className="additional-info">Orders for whole cake (12 pieces) will be 10% less of the price</p>
                     </div>
                     <Link type='submit' to={`/order/${_id}`}>Order</Link>    
                 </div>
