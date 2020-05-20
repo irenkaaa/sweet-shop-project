@@ -173,7 +173,7 @@ class App extends Component {
           orders: responseBody.data,
           cartProducts: [],
         });
-        remove('http://localhost:5000/carts/userCart');
+        remove('http://localhost:5000/carts/userCartDel');
       }
       else {
         toast.error(`${responseBody.message}`, {closeButton:false});

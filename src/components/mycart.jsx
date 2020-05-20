@@ -10,7 +10,7 @@ class MyCart extends React.Component {
   totalSum(cartProducts){
     let totalSum = 0;
     cartProducts.map(el => totalSum+=el.product[0].fSum)
-    return totalSum;
+    return Math.round(totalSum * 100) / 100;
   }
 
   render() {

@@ -18,10 +18,13 @@ handleChange(event) {
 }
  
   getSum(q,p){
+    const formula = Number(q)*Number(p);
+    const discount = 0.9;
     if(q >= 10){
-      return  (Number(q)*Number(p))*0.9;
+      return  Math.round(formula*discount *100)/100;
     } else {
-      return Number(q)*Number(p);
+      return  Math.round(formula * 100) / 100;
+
     }
   }
 
