@@ -345,6 +345,25 @@ class App extends Component {
         }
     })       
   }
+
+  deleteCartProduct(e,data){
+    e.preventDefault();
+    remove(`http://localhost:5000/carts/delete/product/${data}`)
+    .then(result => {
+      if(result.success) {
+        toast.success(`${result.message}`, {closeButton:false});
+        get('http://localhost:5000/carts/userCart').then(resBody => {
+          this.setState({
+            cartProducts: resBody
+          })
+      })
+      }
+      else {
+        toast.error(`${result.message}`, {closeButton:false});
+      }
+    })       
+  }
+
   render () {
     return (
       <div className="App">
@@ -454,6 +473,7 @@ class App extends Component {
                         cartProducts={this.state.cartProducts}
                         isLoadingCart={this.state.isLoadingCart}
                         handleMyCartSubmit={this.handleMyCartSubmit.bind(this)}
+                        deleteCartProduct={this.deleteCartProduct.bind(this)}
                         />
                           :
                           <Redirect

@@ -37,7 +37,7 @@ class MyCart extends React.Component {
             {
               cartProducts.map(item => 
                 (
-                  <ProductInfo key={item._id} {...item.product[0]} />
+                  <ProductInfo key={item._id} {...item} deleteCartProduct={this.props.deleteCartProduct.bind(this)} />
                 ))                 
             }
           <div className='total-price'>
