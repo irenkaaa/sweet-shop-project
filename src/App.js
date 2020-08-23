@@ -54,43 +54,13 @@ class App extends Component {
         isAdmin: isAdmin, 
       });
     }
-
-      get('http://localhost:5000/orders/pending')
-      .then(result => {
-        if(result){
-          this.setState({
-            ordersForReviewLoading : false,
-            pendingOrders: result
-          })
-        }
-      });
-      get('http://localhost:5000/carts/userCart').then(resBody => {
+      get('http://localhost:5000/sweets/all').then(resBody => {
         this.setState({
-          cartProducts: resBody,
-          isLoadingCart: false
-        })
-      })
-      get('http://localhost:5000/orders/user').then(resBody => {
-         this.setState({
-          orders: resBody,
-          ordersLoading: false
+          sweets: resBody,
+          isLoading:false,
         })
       });
-
-    get('http://localhost:5000/sweets/all').then(resBody => {
-      this.setState({
-        sweets: resBody,
-        isLoading:false,
-      })
-    });
-
-    get('http://localhost:5000/users/all').then(resBody => {
-      this.setState({
-        loadUsers: resBody.data,
-      });
-  })
-        
-   }
+  }
 
   handleChange(e){
     this.setState({
@@ -111,12 +81,38 @@ class App extends Component {
           localStorage.setItem('isAdmin', responseBody.user.isAdmin);
           localStorage.setItem('token', responseBody.token);
           toast.success(`Welcome, ${responseBody.user.username}`, {closeButton:false});
-          get('http://localhost:5000/orders/user').then(resBody => {
-          this.setState({
-            orders: resBody,
-            ordersLoading: false
-          })
-        });
+
+          if(this.state.isAdmin) {
+            get('http://localhost:5000/users/all').then(resBody => {
+              this.setState({
+                loadUsers: resBody.data,
+              });
+            })
+
+            get('http://localhost:5000/orders/pending')
+              .then(result => {
+                if(result){
+                  this.setState({
+                    ordersForReviewLoading : false,
+                    pendingOrders: result
+                  })
+                }
+              });
+          } else {
+            get('http://localhost:5000/carts/userCart').then(resBody => {
+              this.setState({
+                cartProducts: resBody,
+                isLoadingCart: false
+              })
+            })
+
+            get('http://localhost:5000/orders/user').then(resBody => {
+              this.setState({
+                orders: resBody,
+                ordersLoading: false
+              })
+            });
+          }         
           props.history.push('/')
         }
         else {
