@@ -22,7 +22,7 @@ class Register extends Component {
       
         <div className="form-wrapper">
           <h1>Register</h1>
-          <form onSubmit={ (e) => this.props.handleSubmit(e, this.state,true)} >
+          <form onSubmit={ (e) => this.props.handleSubmit(e, this.state,true,this.props)} >
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
               <input onChange={this.handleChange} type="text" name="email" id="email" placeholder="Enter e-mail" value={email} />
