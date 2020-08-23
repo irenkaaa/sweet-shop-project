@@ -42,7 +42,7 @@ class App extends Component {
       ordersLoading: true,
       ordersForReviewLoading: true,
       pendingOrders: [],
-      loadUsers: ''
+      loadUsers: [],
     };
   }
 

@@ -1,3 +1,16 @@
+University: SoftUni
+
+Course: ReactJs Fundamentals 2019
+
+Project Name: Sweet shop
+
+Student: irenkaaa
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
